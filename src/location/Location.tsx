@@ -33,26 +33,21 @@ const Location: React.FC<LocationProps> = ({ name, type, img }) => {
       </IonCardHeader>
 
       <IonCardContent>
-        <IonChip>{type}</IonChip>
-        <IonButton expand="block" onClick={() => setIsOpen(true)}>
-          Open
+        <IonChip color="tertiary">{type}</IonChip>
+        <IonButton color="dark" expand="block" onClick={() => setIsOpen(true)}>
+          Details
         </IonButton>
         <IonModal isOpen={isOpen}>
           <IonHeader>
             <IonToolbar>
-              <IonTitle>Modal</IonTitle>
+              <IonTitle>{name}</IonTitle>
               <IonButtons slot="end">
                 <IonButton onClick={() => setIsOpen(false)}>Close</IonButton>
               </IonButtons>
             </IonToolbar>
           </IonHeader>
           <IonContent className="ion-padding">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni
-              illum quidem recusandae ducimus quos reprehenderit. Veniam,
-              molestias quos, dolorum consequuntur nisi deserunt omnis id illo
-              sit cum qui. Eaque, dicta.
-            </p>
+            <p>Descriere</p>
           </IonContent>
         </IonModal>
       </IonCardContent>
