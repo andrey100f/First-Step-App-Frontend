@@ -1,11 +1,11 @@
 import {RouteComponentProps} from "react-router";
 import React, {useContext} from "react";
 import {IonContent, IonHeader, IonList, IonLoading, IonPage, IonTitle, IonToolbar} from "@ionic/react";
-import Announcement from "./Announcement";
-import {AnnouncementItemContext} from "./AnnouncementProvider";
+import Location from "./Location";
+import {LocationContext} from "./LocationProvider";
 
-const AnnouncementList: React.FC<RouteComponentProps> = () => {
-    const {announcements, fetching, fetchingError} = useContext(AnnouncementItemContext);
+const LocationList: React.FC<RouteComponentProps> = () => {
+    const {locations, fetching, fetchingError} = useContext(LocationContext);
 
     return (
         <IonPage>
@@ -16,12 +16,12 @@ const AnnouncementList: React.FC<RouteComponentProps> = () => {
             </IonHeader>
 
             <IonContent>
-                <IonTitle className="ion-margin">Announcements</IonTitle>
+                <IonTitle className="ion-margin">Locations</IonTitle>
                 <IonLoading isOpen={fetching} message="Fetching Items" />
 
                 <IonList>
-                    {announcements?.map(({title, text, category, img, url }) =>
-                    <Announcement title={title} text={text} category={category} img={img} url = {url} />)}
+                    {locations?.map(({name, type, img}) =>
+                        <Location name={name} type={type} img={img} />)}
                 </IonList>
 
                 {fetchingError && (
@@ -32,4 +32,4 @@ const AnnouncementList: React.FC<RouteComponentProps> = () => {
     );
 }
 
-export default AnnouncementList;
+export default LocationList;

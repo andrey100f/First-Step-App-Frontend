@@ -3,4 +3,5 @@ export interface AnnouncementProps {
     text: string;
     category: string;
     img: string;
+    url:string;
 }
