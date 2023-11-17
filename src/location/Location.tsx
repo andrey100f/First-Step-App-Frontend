@@ -26,14 +26,14 @@ import { home, person, settings } from "ionicons/icons";
 const Location: React.FC<LocationProps> = ({ name, type, img }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <IonCard color="primary" className="ion-margin">
-      <img alt={name} src={img} />
+    <IonCard color="light" className="ion-margin">
+      <img width={380} height={213.75} alt={name} src={img} />
       <IonCardHeader>
         <IonCardTitle>{name}</IonCardTitle>
       </IonCardHeader>
 
       <IonCardContent>
-        <IonChip color="tertiary">{type}</IonChip>
+        <IonChip outline={true}>{type}</IonChip>
         <IonButton color="dark" expand="block" onClick={() => setIsOpen(true)}>
           Details
         </IonButton>
