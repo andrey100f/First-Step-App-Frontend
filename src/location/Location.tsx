@@ -5,14 +5,8 @@ import {
   IonCard,
   IonCardContent,
   IonCardHeader,
-  IonCardSubtitle,
   IonCardTitle,
   IonChip,
-  IonIcon,
-  IonTabBar,
-  IonTabButton,
-  IonTabs,
-  IonThumbnail,
   IonTitle,
   IonButton,
   IonModal,
@@ -21,9 +15,17 @@ import {
   IonButtons,
   IonContent,
 } from "@ionic/react";
-import { home, person, settings } from "ionicons/icons";
 
-const Location: React.FC<LocationProps> = ({ name, type, img }) => {
+const Location: React.FC<LocationProps> = ({
+  name,
+  street,
+  number,
+  type,
+  latitude,
+  longitude,
+  img,
+  description,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <IonCard color="light" className="ion-margin">
@@ -47,7 +49,7 @@ const Location: React.FC<LocationProps> = ({ name, type, img }) => {
             </IonToolbar>
           </IonHeader>
           <IonContent className="ion-padding">
-            <p>Descriere</p>
+            <p>{description}</p>
           </IonContent>
         </IonModal>
       </IonCardContent>
