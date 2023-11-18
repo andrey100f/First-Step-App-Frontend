@@ -1,5 +1,11 @@
 export interface LocationProps {
-    name: string;
-    type: string;
-    img: string;
+  locationId: number;
+  name: string;
+  street: string;
+  number: string;
+  type: string;
+  latitude: number;
+  longitude: number;
+  img: string;
+  description: string;
 }
