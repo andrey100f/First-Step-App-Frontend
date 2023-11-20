@@ -35,6 +35,8 @@ import {calendar, call, home, location, person, settings} from "ionicons/icons";
 import React from "react";
 import LocationList from "./location/LocationList";
 import {LocationProvider} from "./location/LocationProvider";
+import {Login} from "./SignIn/Login";
+import {Signin} from "./SignIn/Signin";
 
 setupIonicReact();
 
@@ -43,6 +45,8 @@ const App: React.FC = () => (
     <IonReactRouter>
         <IonTabs>
       <IonRouterOutlet>
+          <Route path="/Login" component={Login} exact={true} />
+          <Route path="/Signin" component={Signin} exact={true} />
           <LocationProvider>
         <AnnouncementProvider>
           <Route path="/announcements" component={AnnouncementList} exact={true} />
