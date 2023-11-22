@@ -1,5 +1,5 @@
 import { RouteComponentProps } from "react-router";
-import React, { useContext, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {
   IonContent,
   IonHeader,
@@ -14,6 +14,7 @@ import {
 } from "@ionic/react";
 import Announcement from "./Announcement";
 import { AnnouncementItemContext } from "./AnnouncementProvider";
+import {usePreferences} from "../utils/usePreferemces";
 
 const AnnouncementList: React.FC<RouteComponentProps> = () => {
   const { announcements, fetching, fetchingError } = useContext(
@@ -21,16 +22,36 @@ const AnnouncementList: React.FC<RouteComponentProps> = () => {
   );
   const [filterUniversity, setFilterUniversity] = useState<string>("");
   const [filterCategory, setFilterCategory] = useState<string>("");
+  const {get, set} = usePreferences();
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    const getToken = async () => {
+      const result = await get("fsaLoginToken");
+      setToken(result!);
+    };
+
+    getToken();
+  }, []);
+
 
   const handleRestFilters = () => {
     setFilterUniversity("");
     setFilterCategory("");
   };
+
+  const handleLogOut = async () => {
+    await set("fsaLoginToken", "");
+    window.location.href = "/login";
+  }
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonTitle slot="start">First Step App</IonTitle>
+          <IonButton className="ion-margin-end" slot="end" color="danger" size="small" fill="outline"
+                     shape="round" onClick={handleLogOut}>Log Out</IonButton>
         </IonToolbar>
       </IonHeader>
 
