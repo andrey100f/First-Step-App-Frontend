@@ -98,8 +98,8 @@ const LocationList: React.FC<RouteComponentProps> = () => {
                   name={name}
                   street={street}
                   number={number}
-                  latitude={latitude}
-                  longitude={longitude}
+                  latitude={10}
+                  longitude={10}
                   type={type}
                   img={img}
                   description={description}

@@ -26,7 +26,6 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({component: Component,
     return (
         <Route {...rest} render={props => {
             if(token !== "" || isAuthenticated) {
-                console.log(token);
                 return <Component {...props} />
             }
             return <Redirect to={{pathname: "/login"}} />

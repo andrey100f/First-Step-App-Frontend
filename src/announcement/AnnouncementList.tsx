@@ -21,7 +21,6 @@ const AnnouncementList: React.FC<RouteComponentProps> = () => {
     AnnouncementItemContext
   );
   const [filterUniversity, setFilterUniversity] = useState<string>("");
-  const [filterCategory, setFilterCategory] = useState<string>("");
   const {get, set} = usePreferences();
   const [token, setToken] = useState("");
 
@@ -37,7 +36,6 @@ const AnnouncementList: React.FC<RouteComponentProps> = () => {
 
   const handleRestFilters = () => {
     setFilterUniversity("");
-    setFilterCategory("");
   };
 
   const handleLogOut = async () => {
@@ -71,20 +69,6 @@ const AnnouncementList: React.FC<RouteComponentProps> = () => {
           </IonSelectOption>
         </IonSelect>
 
-        <IonSelect
-          className="ion-margin"
-          value={filterUniversity}
-          placeholder="Select the category"
-          onIonChange={(e) => setFilterUniversity(e.detail.value!)}
-        >
-          <IonSelectOption key="Practica" value="Practica">
-            Practica
-          </IonSelectOption>
-          <IonSelectOption key="Burse" value="Burse">
-            Burse
-          </IonSelectOption>
-        </IonSelect>
-
         <IonButton className="ion-margin" onClick={handleRestFilters}>
           Reset Filters
         </IonButton>
@@ -96,10 +80,6 @@ const AnnouncementList: React.FC<RouteComponentProps> = () => {
               (announcement) =>
                 !filterUniversity ||
                 announcement.universityDto.name! === filterUniversity
-            )
-            .filter(
-              (announcement) =>
-                !filterCategory || announcement.category! === filterCategory
             )
             .map(
               ({
