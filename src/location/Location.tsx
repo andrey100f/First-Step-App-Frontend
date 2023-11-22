@@ -15,8 +15,10 @@ import {
   IonButtons,
   IonContent,
 } from "@ionic/react";
+import MyMap from "../utils/location/MyMap";
 
 const Location: React.FC<LocationProps> = ({
+  locationId,
   name,
   street,
   number,
@@ -27,6 +29,8 @@ const Location: React.FC<LocationProps> = ({
   description,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const days = description.split("\n");
+
   return (
     <IonCard color="light" className="ion-margin">
       <img width={380} height={213.75} alt={name} src={img} />
@@ -49,7 +53,16 @@ const Location: React.FC<LocationProps> = ({
             </IonToolbar>
           </IonHeader>
           <IonContent className="ion-padding">
-            <p>{description}</p>
+
+            {days.map(day =>
+              <p key={"" + locationId + `${day} program`}>{day}</p>
+            )}
+
+            {latitude && longitude &&
+                <MyMap key={"" + locationId + " location"}
+                    lat={latitude}
+                    lng={longitude}
+                />}
           </IonContent>
         </IonModal>
       </IonCardContent>
