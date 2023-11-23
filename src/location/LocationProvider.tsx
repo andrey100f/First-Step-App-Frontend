@@ -1,7 +1,8 @@
 import { LocationProps } from "./LocationProps";
-import React, { useEffect, useReducer } from "react";
+import React, {useEffect, useReducer, useState} from "react";
 import PropTypes from "prop-types";
 import { getLocations } from "./LocationApi";
+import {usePreferences} from "../utils/usePreferemces";
 
 export interface LocationState {
   locations?: LocationProps[];
@@ -49,8 +50,19 @@ export const LocationProvider: React.FC<AnnouncementProviderProps> = ({
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { locations, fetching, fetchingError } = state;
+  const {get, set} = usePreferences();
+  const [token, setToken] = useState("");
 
-  useEffect(getLocationsEffect, []);
+  useEffect(() => {
+    const getToken = async () => {
+      const result = await get("fsaLoginToken");
+      setToken(result!);
+    };
+
+    getToken();
+  }, []);
+
+  useEffect(getLocationsEffect, [token]);
 
   const value = { locations, fetching, fetchingError };
 
@@ -62,7 +74,10 @@ export const LocationProvider: React.FC<AnnouncementProviderProps> = ({
 
   function getLocationsEffect() {
     let canceled = false;
-    fetchLocations();
+
+    if(token) {
+      fetchLocations();
+    }
 
     return () => {
       canceled = true;
@@ -72,7 +87,7 @@ export const LocationProvider: React.FC<AnnouncementProviderProps> = ({
       try {
         dispatch({ type: FETCHING_STARTED });
 
-        const locations = await getLocations();
+        const locations = await getLocations(token);
 
         if (!canceled) {
           dispatch({ type: FETCHING_SUCCEEDED, payload: { locations } });

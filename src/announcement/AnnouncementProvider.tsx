@@ -1,7 +1,8 @@
 import { AnnouncementProps } from "./AnnouncementProps";
-import React, { useEffect, useReducer } from "react";
+import React, {useEffect, useReducer, useState} from "react";
 import PropTypes from "prop-types";
 import { getAnnouncements } from "./AnnouncementApi";
+import {usePreferences} from "../utils/usePreferemces";
 
 export interface AnnouncementItemState {
   announcements?: AnnouncementProps[];
@@ -54,8 +55,19 @@ export const AnnouncementProvider: React.FC<AnnouncementProviderProps> = ({
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { announcements, fetching, fetchingError } = state;
+  const {get, set} = usePreferences();
+  const [token, setToken] = useState<string>("");
 
-  useEffect(getAnnouncementsEffect, []);
+  useEffect(() => {
+    const getToken = async () => {
+      const result = await get("fsaLoginToken");
+      setToken(result!);
+    };
+
+    getToken();
+  }, []);
+
+  useEffect(getAnnouncementsEffect, [token]);
 
   const value = { announcements, fetching, fetchingError };
 
@@ -67,7 +79,10 @@ export const AnnouncementProvider: React.FC<AnnouncementProviderProps> = ({
 
   function getAnnouncementsEffect() {
     let canceled = false;
-    fetchAnnouncements();
+
+    if(token) {
+      fetchAnnouncements();
+    }
 
     return () => {
       canceled = true;
@@ -77,7 +92,7 @@ export const AnnouncementProvider: React.FC<AnnouncementProviderProps> = ({
       try {
         dispatch({ type: FETCHING_STARTED });
 
-        const announcements = await getAnnouncements();
+        const announcements = await getAnnouncements(token);
 
         if (!canceled) {
           dispatch({ type: FETCHING_SUCCEEDED, payload: { announcements } });

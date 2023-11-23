@@ -48,9 +48,14 @@ export const Login: React.FC<RouteComponentProps> = ({history}) => {
 
     const handleLogin = useCallback(() => {
         login?.(email, password);
-        history.push("/");
+        setTimeout(() => {
+            window.location.href = "/announcements";
+        }, 500);
     }, [email, password, token]);
 
+    const handleRegister = () => {
+        history.push("/register");
+    }
 
     useEffect(() => {
         if (isAuthenticated || token !== "") {
@@ -78,6 +83,8 @@ export const Login: React.FC<RouteComponentProps> = ({history}) => {
                     </IonItem>
                     <IonButton className="ion-margin-top" expand="block" shape="round" fill="outline"
                                onClick={handleLogin}>Login</IonButton>
+                    <IonButton className="ion-margin-top" expand="block" shape="round" fill="outline"
+                               onClick={handleRegister}>Register</IonButton>
                 </div>
 
                 <IonLoading isOpen={isAuthenticating} />
