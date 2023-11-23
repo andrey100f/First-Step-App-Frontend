@@ -25,6 +25,7 @@ export const login: (email?: string, password?: string) => Promise<AuthProps> = 
 export const register: (name?: string, email?: string, password?: string, university?: string, faculty?: string) => Promise<AuthProps> = async (name, email, password, university, faculty) => {
     try {
         let res = await axios.post(`${authUrl}/register`, {name, email, password, university, faculty}, config);
+        console.log(res.data);
         return Promise.resolve(res.data);
     }
     catch (err) {

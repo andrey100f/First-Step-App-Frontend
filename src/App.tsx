@@ -32,48 +32,99 @@ import './theme/variables.css';
 import AnnouncementList from "./announcement/AnnouncementList";
 import {AnnouncementProvider} from "./announcement/AnnouncementProvider";
 import {home, location} from "ionicons/icons";
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import LocationList from "./location/LocationList";
 import {LocationProvider} from "./location/LocationProvider";
 import {Login} from "./auth/Login";
 import {AuthContext, AuthProvider, AuthState} from "./auth/AuthProvider";
 import {PrivateRoute} from "./auth/PrivateRoute";
 import {Register} from "./auth/Register";
+import {RegistrationProvider} from "./auth/RegistrationProvider";
+import {usePreferences} from "./utils/usePreferemces";
 
 setupIonicReact();
 
 const App: React.FC = () => {
+    const {get, set} = usePreferences();
+    const [token, setToken] = useState("");
+    useEffect(() => {
+        const getToken = async () => {
+            const result = await get("fsaLoginToken");
+            setToken(result!);
+        };
+
+        getToken();
+    }, []);
+
     return (
         <IonApp>
-            <IonReactRouter>
-                <IonTabs>
-                    <IonRouterOutlet>
-                        <AuthProvider>
-                            <Route path="/login" component={Login} exact={true}/>
-                            <Route path="/register" component={Register} exact={true}/>
-                            <LocationProvider>
-                                <AnnouncementProvider>
-                                    <PrivateRoute path="/announcements" component={AnnouncementList} exact={true}/>
-                                    <PrivateRoute path="/locations" component={LocationList} exact={true}/>
-                                </AnnouncementProvider>
-                            </LocationProvider>
-                            <Route exact path="/" render={() => <Redirect to="/announcements"/>}/>
-                        </AuthProvider>
-                    </IonRouterOutlet>
+            {token && (
+                <IonReactRouter>
+                    <IonTabs>
+                        <IonRouterOutlet>
+                            <AuthProvider>
+                                <RegistrationProvider>
+                                    <Route path="/login" component={Login} exact={true}/>
+                                    <Route path="/register" component={Register} exact={true}/>
+                                    <LocationProvider>
+                                        <AnnouncementProvider>
+                                            <PrivateRoute path="/announcements" component={AnnouncementList} exact={true}/>
+                                            <PrivateRoute path="/locations" component={LocationList} exact={true}/>
+                                        </AnnouncementProvider>
+                                    </LocationProvider>
+                                    <Route exact path="/" render={() => <Redirect to="/announcements"/>}/>
+                                </RegistrationProvider>
+                            </AuthProvider>
+                        </IonRouterOutlet>
 
-                    <IonTabBar slot="bottom">
-                        <IonTabButton tab="announcements" href="/announcements">
-                            <IonIcon aria-hidden="true" icon={home}/>
-                            <IonLabel>Announcements</IonLabel>
-                        </IonTabButton>
-                        <IonTabButton tab="locations" href="/locations">
-                            <IonIcon aria-hidden="true" icon={location}/>
-                            <IonLabel>Locations</IonLabel>
-                        </IonTabButton>
-                    </IonTabBar>
-                </IonTabs>
+                        <IonTabBar slot="bottom">
+                            <IonTabButton tab="announcements" href="/announcements">
+                                <IonIcon aria-hidden="true" icon={home}/>
+                                <IonLabel>Announcements</IonLabel>
+                            </IonTabButton>
+                            <IonTabButton tab="locations" href="/locations">
+                                <IonIcon aria-hidden="true" icon={location}/>
+                                <IonLabel>Locations</IonLabel>
+                            </IonTabButton>
+                        </IonTabBar>
+                    </IonTabs>
 
-            </IonReactRouter>
+                </IonReactRouter>
+            )}
+
+            {!token && (
+                <IonReactRouter>
+                    {/*<IonTabs>*/}
+                        <IonRouterOutlet>
+                            <AuthProvider>
+                                <RegistrationProvider>
+                                    <Route path="/login" component={Login} exact={true}/>
+                                    <Route path="/register" component={Register} exact={true}/>
+                                    <LocationProvider>
+                                        <AnnouncementProvider>
+                                            <PrivateRoute path="/announcements" component={AnnouncementList} exact={true}/>
+                                            <PrivateRoute path="/locations" component={LocationList} exact={true}/>
+                                        </AnnouncementProvider>
+                                    </LocationProvider>
+                                    <Route exact path="/" render={() => <Redirect to="/announcements"/>}/>
+                                </RegistrationProvider>
+                            </AuthProvider>
+                        </IonRouterOutlet>
+
+                    {/*    <IonTabBar slot="bottom">*/}
+                    {/*        <IonTabButton tab="announcements" href="/announcements">*/}
+                    {/*            <IonIcon aria-hidden="true" icon={home}/>*/}
+                    {/*            <IonLabel>Announcements</IonLabel>*/}
+                    {/*        </IonTabButton>*/}
+                    {/*        <IonTabButton tab="locations" href="/locations">*/}
+                    {/*            <IonIcon aria-hidden="true" icon={location}/>*/}
+                    {/*            <IonLabel>Locations</IonLabel>*/}
+                    {/*        </IonTabButton>*/}
+                    {/*    </IonTabBar>*/}
+                    {/*</IonTabs>*/}
+
+                </IonReactRouter>
+            )}
         </IonApp>
     )
 };
