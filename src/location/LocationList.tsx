@@ -1,5 +1,5 @@
 import { RouteComponentProps } from "react-router";
-import React, {useContext, useEffect, useState} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   IonContent,
   IonHeader,
@@ -14,12 +14,12 @@ import {
 } from "@ionic/react";
 import Location from "./Location";
 import { LocationContext } from "./LocationProvider";
-import {usePreferences} from "../utils/usePreferemces";
+import { usePreferences } from "../utils/usePreferemces";
 
 const LocationList: React.FC<RouteComponentProps> = () => {
   const { locations, fetching, fetchingError } = useContext(LocationContext);
   const [filterType, setFilterType] = useState<string>("");
-  const {get, set} = usePreferences();
+  const { get, set } = usePreferences();
   const [token, setToken] = useState("");
 
   useEffect(() => {
@@ -34,15 +34,24 @@ const LocationList: React.FC<RouteComponentProps> = () => {
   const handleLogOut = async () => {
     await set("fsaLoginToken", "");
     window.location.href = "/login";
-  }
+  };
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonTitle slot="start">First Step App</IonTitle>
-          <IonButton className="ion-margin-end" slot="end" color="danger" size="small" fill="outline"
-                     shape="round" onClick={handleLogOut}>Log Out</IonButton>
+          <IonButton
+            className="ion-margin-end"
+            slot="end"
+            color="danger"
+            size="small"
+            fill="outline"
+            shape="round"
+            onClick={handleLogOut}
+          >
+            Log Out
+          </IonButton>
         </IonToolbar>
       </IonHeader>
 
@@ -98,8 +107,8 @@ const LocationList: React.FC<RouteComponentProps> = () => {
                   name={name}
                   street={street}
                   number={number}
-                  latitude={10}
-                  longitude={10}
+                  latitude={parseFloat(latitude.toString())}
+                  longitude={parseFloat(longitude.toString())}
                   type={type}
                   img={img}
                   description={description}
