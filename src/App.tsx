@@ -38,11 +38,11 @@ import {LocationProvider} from "./location/LocationProvider";
 import {Login} from "./auth/Login";
 import {AuthContext, AuthProvider, AuthState} from "./auth/AuthProvider";
 import {PrivateRoute} from "./auth/PrivateRoute";
+import {Register} from "./auth/Register";
 
 setupIonicReact();
 
 const App: React.FC = () => {
-    const {isAuthenticated} = useContext<AuthState>(AuthContext);
     return (
         <IonApp>
             <IonReactRouter>
@@ -50,6 +50,7 @@ const App: React.FC = () => {
                     <IonRouterOutlet>
                         <AuthProvider>
                             <Route path="/login" component={Login} exact={true}/>
+                            <Route path="/register" component={Register} exact={true}/>
                             <LocationProvider>
                                 <AnnouncementProvider>
                                     <PrivateRoute path="/announcements" component={AnnouncementList} exact={true}/>
