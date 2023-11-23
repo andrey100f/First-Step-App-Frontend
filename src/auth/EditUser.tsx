@@ -11,6 +11,7 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
+import {usePreferences} from "../utils/usePreferemces";
 
 interface UpdateState {
   name?: string;
@@ -23,6 +24,17 @@ interface UpdateState {
 export const EditUser: React.FC<RouteComponentProps> = ({ history }) => {
   const [state, setState] = useState<UpdateState>({});
   const { name, email, password, university, faculty } = state;
+    const {get, set} = usePreferences();
+    const [token, setToken] = useState("");
+
+    useEffect(() => {
+        const getToken = async () => {
+            const result = await get("fsaLoginToken");
+            setToken(result!);
+        };
+
+        getToken();
+    }, []);
 
   const handleNameChange = useCallback(
     (e: any) =>
@@ -69,11 +81,18 @@ export const EditUser: React.FC<RouteComponentProps> = ({ history }) => {
     [state]
   );
 
+    const handleLogOut = async () => {
+        await set("fsaLoginToken", "");
+        window.location.href = "/login";
+    }
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonTitle>Update</IonTitle>
+            <IonButton className="ion-margin-end" slot="end" color="danger" size="small" fill="outline"
+                   shape="round" onClick={handleLogOut}>Log Out</IonButton>
         </IonToolbar>
       </IonHeader>
 
