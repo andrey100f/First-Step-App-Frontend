@@ -53,6 +53,9 @@ export const Register: React.FC<RouteComponentProps> = ({history}) => {
 
     const handleRegister = useCallback(() => {
         register?.(name, email, password, university, faculty);
+        setTimeout(() => {
+            window.location.href = "/login";
+        }, 1000);
     }, [name, email, password, university, faculty]);
 
     const handleLogin = () => {

@@ -1,6 +1,7 @@
 import React, {useCallback, useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {register as registerApi } from "./AuthApi";
+import {usePreferences} from "../utils/usePreferemces";
 
 type RegistrationFn = (name?: string, email?: string, password?: string, university?: string, faculty?: string) => void;
 
@@ -60,13 +61,13 @@ export const RegistrationProvider: React.FC<RegistrationProviderProps> = ({child
     function registrationEffect() {
         let canceled = false;
 
-        register();
+        signup();
 
         return () => {
             canceled = true;
         }
 
-        async function register() {
+        async function signup() {
             if(!pendingRegistration) {
                 return;
             }
