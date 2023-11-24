@@ -3,9 +3,9 @@ import {RouteComponentProps} from "react-router";
 import {usePreferences} from "../utils/usePreferemces";
 import {AuthContext} from "./AuthProvider";
 import {
-    IonButton,
-    IonContent,
-    IonHeader,
+    IonButton, IonCardSubtitle,
+    IonContent, IonFab, IonFabButton,
+    IonHeader, IonIcon,
     IonInput,
     IonItem,
     IonLabel, IonLoading,
@@ -13,6 +13,10 @@ import {
     IonTitle, IonToast,
     IonToolbar
 } from "@ionic/react";
+import "./styles/main.css";
+import {Simulate} from "react-dom/test-utils";
+import ended = Simulate.ended;
+import {chevronBack, chevronForwardCircle, handLeft} from "ionicons/icons";
 
 interface LoginState {
     email?: string;
@@ -65,25 +69,24 @@ export const Login: React.FC<RouteComponentProps> = ({history}) => {
 
     return (
         <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle>Login</IonTitle>
-                </IonToolbar>
-            </IonHeader>
-
             <IonContent>
-                <div className="ion-padding">
-                    <IonItem>
+                <IonFabButton color="medium" className="ion-margin">
+                    <IonIcon icon={chevronBack}></IonIcon>
+                </IonFabButton>
+                <IonTitle className="login-title">Welcome Back!</IonTitle>
+                <p className="login-subtitle">Enter Your Username and Password</p>
+                <div className="ion-padding background">
+                    <IonItem className="login-input email">
                         <IonLabel position="floating">Email</IonLabel>
-                        <IonInput value={email} onIonChange={handleEmailChange}/>
+                        <IonInput type="email" value={email} onIonChange={handleEmailChange}/>
                     </IonItem>
-                    <IonItem>
+                    <IonItem className="login-input">
                         <IonLabel position="floating">Password</IonLabel>
                         <IonInput type="password" value={password} onIonChange={handlePasswordChange}/>
                     </IonItem>
-                    <IonButton className="ion-margin-top" expand="block" shape="round" fill="outline"
-                               onClick={handleLogin}>Login</IonButton>
-                    <IonButton className="ion-margin-top" expand="block" shape="round" fill="outline"
+                    <IonButton color="dark" className="ion-margin-top login-button" shape="round"
+                               onClick={handleLogin}>Log In</IonButton>
+                    <IonButton color="dark" className="ion-margin-top login-button" shape="round"
                                onClick={handleRegister}>Register</IonButton>
                 </div>
 
