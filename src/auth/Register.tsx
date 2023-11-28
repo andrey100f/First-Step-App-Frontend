@@ -11,7 +11,7 @@ import {
     IonTitle, IonToast,
     IonToolbar
 } from "@ionic/react";
-import {RegistrationContext} from "./RegistrationProvider";
+import {RegisterContext} from "./RegisterProvider";
 
 interface RegisterState {
     name?: string;
@@ -22,7 +22,7 @@ interface RegisterState {
 }
 
 export const Register: React.FC<RouteComponentProps> = ({history}) => {
-    const {isRegistered, isRegistering, register, registrationError} = useContext(RegistrationContext);
+    const {isRegistered, isRegistering, register, registrationError} = useContext(RegisterContext);
     const [state, setState] = useState<RegisterState>({});
     const {name, email, password, university, faculty} = state;
 

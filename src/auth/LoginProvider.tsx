@@ -28,7 +28,7 @@ interface AuthProviderProps {
     children: PropTypes.ReactNodeLike,
 }
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
+export const LoginProvider: React.FC<AuthProviderProps> = ({children}) => {
     const {get, set} = usePreferences();
     const [state, setState] = useState<AuthState>(initialState);
     const {isAuthenticated, isAuthenticating, authenticationError, pendingAuthentication} = state;
