@@ -11,7 +11,7 @@ import {
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
-import {usePreferences} from "../utils/usePreferemces";
+import { usePreferences } from "../utils/usePreferemces";
 
 interface UpdateState {
   name?: string;
@@ -24,17 +24,17 @@ interface UpdateState {
 export const EditUser: React.FC<RouteComponentProps> = ({ history }) => {
   const [state, setState] = useState<UpdateState>({});
   const { name, email, password, university, faculty } = state;
-    const {get, set} = usePreferences();
-    const [token, setToken] = useState("");
+  const { get, set } = usePreferences();
+  const [token, setToken] = useState("");
 
-    useEffect(() => {
-        const getToken = async () => {
-            const result = await get("fsaLoginToken");
-            setToken(result!);
-        };
+  useEffect(() => {
+    const getToken = async () => {
+      const result = await get("fsaLoginToken");
+      setToken(result!);
+    };
 
-        getToken();
-    }, []);
+    getToken();
+  }, []);
 
   const handleNameChange = useCallback(
     (e: any) =>
@@ -81,32 +81,41 @@ export const EditUser: React.FC<RouteComponentProps> = ({ history }) => {
     [state]
   );
 
-    const handleLogOut = async () => {
-        await set("fsaLoginToken", "");
-        window.location.href = "/hello";
-    }
+  const handleLogOut = async () => {
+    await set("fsaLoginToken", "");
+    window.location.href = "/hello";
+  };
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Update</IonTitle>
-            <IonButton className="ion-margin-end" slot="end" color="danger" size="small" fill="outline"
-                   shape="round" onClick={handleLogOut}>Log Out</IonButton>
+          <IonButton
+            className="ion-margin-end"
+            slot="end"
+            color="danger"
+            size="small"
+            fill="outline"
+            shape="round"
+            onClick={handleLogOut}
+          >
+            Log Out
+          </IonButton>
         </IonToolbar>
       </IonHeader>
 
       <IonContent>
-        <div className="ion-padding">
-          <IonItem>
+        <IonTitle className="edit-user-title">Edit Profile</IonTitle>
+        <div className="ion-padding edit-user-background">
+          <IonItem className="login-input email" color="transparent">
             <IonLabel position="floating">Name</IonLabel>
             <IonInput value={name} onIonChange={handleNameChange} />
           </IonItem>
-          <IonItem>
+          <IonItem className="login-input email" color="transparent">
             <IonLabel position="floating">Email</IonLabel>
             <IonInput value={email} onIonChange={handleEmailChange} />
           </IonItem>
-          <IonItem>
+          <IonItem className="login-input email" color="transparent">
             <IonLabel position="floating">Password</IonLabel>
             <IonInput
               type="password"
@@ -114,19 +123,18 @@ export const EditUser: React.FC<RouteComponentProps> = ({ history }) => {
               onIonChange={handlePasswordChange}
             />
           </IonItem>
-          <IonItem>
+          <IonItem className="login-input email" color="transparent">
             <IonLabel position="floating">University</IonLabel>
             <IonInput value={university} onIonChange={handleUniversityChange} />
           </IonItem>
-          <IonItem>
+          <IonItem className="login-input email" color="transparent">
             <IonLabel position="floating">Faculty</IonLabel>
             <IonInput value={faculty} onIonChange={handleFacultyChange} />
           </IonItem>
           <IonButton
-            className="ion-margin-top"
-            expand="block"
+            className="ion-margin-top loggin-button"
             shape="round"
-            fill="outline"
+            color="dark"
           >
             Update
           </IonButton>
