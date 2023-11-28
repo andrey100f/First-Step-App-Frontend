@@ -8,8 +8,8 @@ import {
   IonCardSubtitle,
   IonCardTitle, IonChip,
 } from "@ionic/react";
+import "../university/styles/main.css";
 import "./styles/main.css";
-import {Link} from "react-router-dom";
 
 const Announcement: React.FC<AnnouncementProps> = ({
   title,
@@ -21,7 +21,7 @@ const Announcement: React.FC<AnnouncementProps> = ({
   }
 
   return (
-    <IonCard color="light" className="ion-margin card">
+    <IonCard color="light" className="ion-margin announcement-card">
       <IonCardHeader>
         <IonCardTitle className="title">{title}</IonCardTitle>
         <IonCardSubtitle>{text}</IonCardSubtitle>

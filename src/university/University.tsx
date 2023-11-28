@@ -1,28 +1,29 @@
 import React, {useContext, useState} from "react";
 import {UniversityProps} from "./UniversityProps";
 import {
-    IonButton, IonButtons,
+    IonButton,
     IonCard,
     IonCardContent,
     IonCardHeader,
-    IonCardTitle, IonContent,
-    IonHeader, IonList,
+    IonCardTitle, IonContent, IonFabButton,
+    IonHeader, IonIcon, IonList,
     IonModal, IonTitle,
     IonToolbar
 } from "@ionic/react";
-import MyMap from "../utils/location/MyMap";
 import {AnnouncementItemContext} from "../announcement/AnnouncementProvider";
 import Announcement from "../announcement/Announcement";
+import "./styles/main.css";
+import {chevronBack} from "ionicons/icons";
 
 const University: React.FC<UniversityProps> = ({universityId, name, img}) => {
     const [isOpen, setIsOpen] = useState(false);
     const { announcements, fetching, fetchingError } = useContext(AnnouncementItemContext);
 
     return (
-      <IonCard color="light" className="ion-margin">
-          <img width={380} height={213.75} alt={name} src={img} />
+      <IonCard color="light" className="ion-margin university-card">
+          <img width={325} height={183} alt={name} src={img} />
           <IonCardHeader>
-              <IonCardTitle>{name}</IonCardTitle>
+              <IonCardTitle className="title">{name}</IonCardTitle>
           </IonCardHeader>
 
           <IonCardContent>
@@ -33,14 +34,18 @@ const University: React.FC<UniversityProps> = ({universityId, name, img}) => {
               <IonModal isOpen={isOpen}>
                   <IonHeader>
                       <IonToolbar>
-                          <IonButtons slot="end">
-                              <IonButton onClick={() => setIsOpen(false)}>Close</IonButton>
-                          </IonButtons>
+                          <IonFabButton
+                              color="medium"
+                              className="ion-margin"
+                              onClick={() => setIsOpen(false)}
+                          >
+                              <IonIcon icon={chevronBack}></IonIcon>
+                          </IonFabButton>
                       </IonToolbar>
                   </IonHeader>
 
-                  <IonContent className="ion-padding">
-                      <IonList>
+                  <IonContent>
+                      <IonList className="page">
                           {announcements
                               ?.filter(
                                   (announcement) => announcement.universityDto.name! === name

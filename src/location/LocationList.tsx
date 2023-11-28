@@ -1,5 +1,5 @@
 import { RouteComponentProps } from "react-router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   IonContent,
   IonHeader,
@@ -14,6 +14,7 @@ import {
 } from "@ionic/react";
 import Location from "./Location";
 import { LocationContext } from "./LocationProvider";
+import "./styles/main.css";
 
 const LocationList: React.FC<RouteComponentProps> = () => {
   const { locations, fetching, fetchingError } = useContext(LocationContext);
