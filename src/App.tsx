@@ -30,7 +30,6 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import AnnouncementList from "./announcement/AnnouncementList";
 import { AnnouncementProvider } from "./announcement/AnnouncementProvider";
 import { home, location, person } from "ionicons/icons";
 import React, { useContext, useEffect, useState } from "react";
@@ -43,6 +42,8 @@ import { Register } from "./auth/Register";
 import { RegisterProvider } from "./auth/RegisterProvider";
 import { usePreferences } from "./utils/usePreferemces";
 import {LandingPage} from "./auth/LandingPage";
+import UniversityList from "./university/UniversityList";
+import {UniversityProvider} from "./university/UniversityProvider";
 
 setupIonicReact();
 
@@ -71,9 +72,10 @@ const App: React.FC = () => {
                   <Route path="/register" component={Register} exact={true} />
                   <LocationProvider>
                     <AnnouncementProvider>
+                      <UniversityProvider>
                       <PrivateRoute
                         path="/announcements"
-                        component={AnnouncementList}
+                        component={UniversityList}
                         exact={true}
                       />
                       <PrivateRoute
@@ -86,6 +88,7 @@ const App: React.FC = () => {
                         component={EditUser}
                         exact={true}
                       />
+                      </UniversityProvider>
                     </AnnouncementProvider>
                   </LocationProvider>
                   <Route
@@ -125,9 +128,10 @@ const App: React.FC = () => {
                 <Route path="/register" component={Register} exact={true} />
                 <LocationProvider>
                   <AnnouncementProvider>
+                    <UniversityProvider>
                     <PrivateRoute
                       path="/announcements"
-                      component={AnnouncementList}
+                      component={UniversityList}
                       exact={true}
                     />
                     <PrivateRoute
@@ -140,6 +144,7 @@ const App: React.FC = () => {
                       component={EditUser}
                       exact={true}
                     />
+                    </UniversityProvider>
                   </AnnouncementProvider>
                 </LocationProvider>
                 <Route

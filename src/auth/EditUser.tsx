@@ -83,7 +83,7 @@ export const EditUser: React.FC<RouteComponentProps> = ({ history }) => {
 
     const handleLogOut = async () => {
         await set("fsaLoginToken", "");
-        window.location.href = "/login";
+        window.location.href = "/hello";
     }
 
   return (
