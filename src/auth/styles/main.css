@@ -1,4 +1,4 @@
-.background {
+.login-background {
     margin-top: 120px;
     background: url("../assets/background.svg");
     height: 545px;
@@ -61,4 +61,20 @@
     height: 54px;
     flex-shrink: 0;
     margin: 20px 75px;
+}
+
+.landing {
+    background: url("../assets/landing_background.png") no-repeat;
+    height: 70%;
+    width: 100%;
+    margin-left: 15px;
+}
+
+.landing-title {
+    width: fit-content;
+    color: #000;
+    font-size: 60px;
+    font-style: normal;
+    font-weight: 800;
+    margin-left: 30px;
 }

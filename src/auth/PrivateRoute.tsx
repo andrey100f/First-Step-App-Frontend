@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {AuthContext, AuthState} from "./AuthProvider";
+import {AuthContext, AuthState} from "./LoginProvider";
 import {usePreferences} from "../utils/usePreferemces";
 import {Redirect, Route} from "react-router-dom";
 
@@ -28,7 +28,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({component: Component,
             if(token !== "" || isAuthenticated) {
                 return <Component {...props} />
             }
-            return <Redirect to={{pathname: "/login"}} />
+            return <Redirect to={{pathname: "/hello"}} />
         }} />
     );
 }

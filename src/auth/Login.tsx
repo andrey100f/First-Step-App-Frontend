@@ -1,7 +1,7 @@
 import React, {useCallback, useContext, useEffect, useState} from "react";
 import {RouteComponentProps} from "react-router";
 import {usePreferences} from "../utils/usePreferemces";
-import {AuthContext} from "./AuthProvider";
+import {AuthContext} from "./LoginProvider";
 import {
     IonButton, IonCardSubtitle,
     IonContent, IonFab, IonFabButton,
@@ -61,6 +61,10 @@ export const Login: React.FC<RouteComponentProps> = ({history}) => {
         history.push("/register");
     }
 
+    const handleBack = () => {
+        history.push("/hello");
+    }
+
     useEffect(() => {
         if (isAuthenticated || token !== "") {
             history.push("/");
@@ -70,12 +74,12 @@ export const Login: React.FC<RouteComponentProps> = ({history}) => {
     return (
         <IonPage>
             <IonContent>
-                <IonFabButton color="medium" className="ion-margin">
+                <IonFabButton color="medium" className="ion-margin" onClick={handleBack}>
                     <IonIcon icon={chevronBack}></IonIcon>
                 </IonFabButton>
                 <IonTitle className="login-title">Welcome Back!</IonTitle>
                 <p className="login-subtitle">Enter Your Username and Password</p>
-                <div className="ion-padding background">
+                <div className="ion-padding login-background">
                     <IonItem className="login-input email">
                         <IonLabel position="floating">Email</IonLabel>
                         <IonInput type="email" value={email} onIonChange={handleEmailChange}/>

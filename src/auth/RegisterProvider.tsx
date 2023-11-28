@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import {register as registerApi } from "./AuthApi";
 import {usePreferences} from "../utils/usePreferemces";
 
-type RegistrationFn = (name?: string, email?: string, password?: string, university?: string, faculty?: string) => void;
+type RegisterFn = (name?: string, email?: string, password?: string, university?: string, faculty?: string) => void;
 
-export interface RegistrationState {
+export interface RegisterState {
     registrationError: Error | null;
     isRegistered: boolean;
     isRegistering: boolean;
-    register?: RegistrationFn;
+    register?: RegisterFn;
     pendingRegistration?: boolean;
     name?: string;
     email?: string;
@@ -18,32 +18,32 @@ export interface RegistrationState {
     faculty?: string;
 }
 
-const initialState: RegistrationState = {
+const initialState: RegisterState = {
     isRegistered: false,
     isRegistering: false,
     registrationError: null,
     pendingRegistration: false
 }
 
-export const RegistrationContext = React.createContext<RegistrationState>(initialState);
+export const RegisterContext = React.createContext<RegisterState>(initialState);
 
-interface RegistrationProviderProps {
+interface RegisterProviderProps {
     children: PropTypes.ReactNodeLike,
 }
 
-export const RegistrationProvider: React.FC<RegistrationProviderProps> = ({children}) => {
-    const [state, setState] = useState<RegistrationState>(initialState);
+export const RegisterProvider: React.FC<RegisterProviderProps> = ({children}) => {
+    const [state, setState] = useState<RegisterState>(initialState);
     const {isRegistered, isRegistering, registrationError, pendingRegistration} = state;
-    const register = useCallback<RegistrationFn>(registerCallback, []);
+    const register = useCallback<RegisterFn>(registerCallback, []);
 
-    useEffect(registrationEffect, [pendingRegistration]);
+    useEffect(registerEffect, [pendingRegistration]);
 
     const value = {isRegistered, register, isRegistering, registrationError};
 
     return (
-        <RegistrationContext.Provider value={value}>
+        <RegisterContext.Provider value={value}>
             {children}
-        </RegistrationContext.Provider>
+        </RegisterContext.Provider>
     );
 
     function registerCallback(name?: string, email?: string, password?: string, university?: string, faculty?: string): void {
@@ -58,7 +58,7 @@ export const RegistrationProvider: React.FC<RegistrationProviderProps> = ({child
         });
     }
 
-    function registrationEffect() {
+    function registerEffect() {
         let canceled = false;
 
         signup();

@@ -37,11 +37,12 @@ import React, { useContext, useEffect, useState } from "react";
 import LocationList from "./location/LocationList";
 import { LocationProvider } from "./location/LocationProvider";
 import { Login } from "./auth/Login";
-import { AuthContext, AuthProvider, AuthState } from "./auth/AuthProvider";
+import { AuthContext, LoginProvider, AuthState } from "./auth/LoginProvider";
 import { PrivateRoute } from "./auth/PrivateRoute";
 import { Register } from "./auth/Register";
-import { RegistrationProvider } from "./auth/RegistrationProvider";
+import { RegisterProvider } from "./auth/RegisterProvider";
 import { usePreferences } from "./utils/usePreferemces";
+import {LandingPage} from "./auth/LandingPage";
 
 setupIonicReact();
 
@@ -63,8 +64,9 @@ const App: React.FC = () => {
         <IonReactRouter>
           <IonTabs>
             <IonRouterOutlet>
-              <AuthProvider>
-                <RegistrationProvider>
+              <LoginProvider>
+                <RegisterProvider>
+                  <Route path="/hello" component={LandingPage} exact={true} />
                   <Route path="/login" component={Login} exact={true} />
                   <Route path="/register" component={Register} exact={true} />
                   <LocationProvider>
@@ -91,8 +93,8 @@ const App: React.FC = () => {
                     path="/"
                     render={() => <Redirect to="/announcements" />}
                   />
-                </RegistrationProvider>
-              </AuthProvider>
+                </RegisterProvider>
+              </LoginProvider>
             </IonRouterOutlet>
 
             <IonTabBar slot="bottom">
@@ -116,8 +118,9 @@ const App: React.FC = () => {
       {!token && (
         <IonReactRouter>
           <IonRouterOutlet>
-            <AuthProvider>
-              <RegistrationProvider>
+            <LoginProvider>
+              <RegisterProvider>
+                <Route path="/hello" component={LandingPage} exact={true} />
                 <Route path="/login" component={Login} exact={true} />
                 <Route path="/register" component={Register} exact={true} />
                 <LocationProvider>
@@ -144,8 +147,8 @@ const App: React.FC = () => {
                   path="/"
                   render={() => <Redirect to="/announcements" />}
                 />
-              </RegistrationProvider>
-            </AuthProvider>
+              </RegisterProvider>
+            </LoginProvider>
           </IonRouterOutlet>
         </IonReactRouter>
       )}
