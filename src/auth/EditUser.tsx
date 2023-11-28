@@ -12,6 +12,7 @@ import {
   IonToolbar,
 } from "@ionic/react";
 import { usePreferences } from "../utils/usePreferemces";
+import "./styles/main.css";
 
 interface UpdateState {
   name?: string;
@@ -88,34 +89,30 @@ export const EditUser: React.FC<RouteComponentProps> = ({ history }) => {
 
   return (
     <IonPage>
-      <IonHeader>
         <IonToolbar>
           <IonButton
-            className="ion-margin-end"
+            className="ion-margin"
             slot="end"
-            color="danger"
-            size="small"
-            fill="outline"
+            color="dark"
             shape="round"
             onClick={handleLogOut}
           >
             Log Out
           </IonButton>
         </IonToolbar>
-      </IonHeader>
 
       <IonContent>
         <IonTitle className="edit-user-title">Edit Profile</IonTitle>
-        <div className="ion-padding edit-user-background">
-          <IonItem className="login-input email" color="transparent">
+        <div className="edit-user-background">
+          <IonItem className="ion-margin login-input email" color="transparent">
             <IonLabel position="floating">Name</IonLabel>
             <IonInput value={name} onIonChange={handleNameChange} />
           </IonItem>
-          <IonItem className="login-input email" color="transparent">
+          <IonItem className="ion-margin login-input" color="transparent">
             <IonLabel position="floating">Email</IonLabel>
             <IonInput value={email} onIonChange={handleEmailChange} />
           </IonItem>
-          <IonItem className="login-input email" color="transparent">
+          <IonItem className="ion-margin login-input" color="transparent">
             <IonLabel position="floating">Password</IonLabel>
             <IonInput
               type="password"
@@ -123,16 +120,16 @@ export const EditUser: React.FC<RouteComponentProps> = ({ history }) => {
               onIonChange={handlePasswordChange}
             />
           </IonItem>
-          <IonItem className="login-input email" color="transparent">
+          <IonItem className="ion-margin login-input" color="transparent">
             <IonLabel position="floating">University</IonLabel>
             <IonInput value={university} onIonChange={handleUniversityChange} />
           </IonItem>
-          <IonItem className="login-input email" color="transparent">
+          <IonItem className="ion-margin login-input" color="transparent">
             <IonLabel position="floating">Faculty</IonLabel>
             <IonInput value={faculty} onIonChange={handleFacultyChange} />
           </IonItem>
           <IonButton
-            className="ion-margin-top loggin-button"
+            className="ion-margin-top login-button edit"
             shape="round"
             color="dark"
           >

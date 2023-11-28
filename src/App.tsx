@@ -44,6 +44,7 @@ import { usePreferences } from "./utils/usePreferemces";
 import {LandingPage} from "./auth/LandingPage";
 import UniversityList from "./university/UniversityList";
 import {UniversityProvider} from "./university/UniversityProvider";
+import "./styles/main.css";
 
 setupIonicReact();
 
@@ -100,7 +101,7 @@ const App: React.FC = () => {
               </LoginProvider>
             </IonRouterOutlet>
 
-            <IonTabBar slot="bottom">
+            <IonTabBar slot="bottom" className="tab-bar">
               <IonTabButton tab="announcements" href="/announcements">
                 <IonIcon aria-hidden="true" icon={home} />
                 <IonLabel>Announcements</IonLabel>
