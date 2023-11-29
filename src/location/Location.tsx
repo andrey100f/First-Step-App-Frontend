@@ -15,7 +15,7 @@ import {
   IonSearchbar,
   IonGrid,
   IonCol,
-  IonRow,
+  IonRow, IonFabButton, IonIcon,
 } from "@ionic/react";
 import MyMap from "../utils/location/MyMap";
 import { chevronBack, search } from "ionicons/icons";
@@ -44,49 +44,18 @@ const Location: React.FC<LocationProps> = ({
       </IonCardHeader>
 
       <IonCardContent>
-        <IonButton onClick={() => setIsOpen(true)}>{name}</IonButton>
+        <IonButton className="button-color" shape="round" onClick={() => setIsOpen(true)}>
+          See More Details
+        </IonButton>
         <IonModal isOpen={isOpen}>
           <IonHeader>
             <IonToolbar>
-              <IonSearchbar animated={true} placeholder="Search"></IonSearchbar>
-              <IonGrid>
-                <IonRow>
-                  <IonCol className="ion-margin frame">
-                    <IonButton onClick={() => setIsOpen(true)}>
-                      {(type = "All")}
-                    </IonButton>
-                  </IonCol>
-                  <IonCol className="frame">
-                    <IonButton onClick={() => setIsOpen(true)}>
-                      {(type = "Clubs")}
-                    </IonButton>
-                  </IonCol>
-                  <IonCol className="frame">
-                    <IonButton
-                      className="frame"
-                      onClick={() => setIsOpen(true)}
-                    >
-                      {(type = "Restaurants")}
-                    </IonButton>
-                  </IonCol>
-                  <IonCol>
-                    <IonButton
-                      className="frame"
-                      onClick={() => setIsOpen(true)}
-                    >
-                      {(type = "Coffee Shops")}
-                    </IonButton>
-                  </IonCol>
-                  <IonCol>
-                    <IonButton
-                      className="frame"
-                      onClick={() => setIsOpen(true)}
-                    >
-                      {(type = "Libraries")}
-                    </IonButton>
-                  </IonCol>
-                </IonRow>
-              </IonGrid>
+              <IonFabButton
+                  color="medium"
+                  className="ion-margin"
+                  onClick={() => setIsOpen(false)}>
+                <IonIcon icon={chevronBack}></IonIcon>
+              </IonFabButton>
             </IonToolbar>
           </IonHeader>
           <IonContent className="ion-padding">

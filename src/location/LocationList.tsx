@@ -10,7 +10,7 @@ import {
   IonToolbar,
   IonSelect,
   IonSelectOption,
-  IonButton,
+  IonButton, IonSearchbar, IonGrid, IonRow, IonCol,
 } from "@ionic/react";
 import Location from "./Location";
 import { LocationContext } from "./LocationProvider";
@@ -19,49 +19,37 @@ import "./styles/main.css";
 const LocationList: React.FC<RouteComponentProps> = () => {
   const { locations, fetching, fetchingError } = useContext(LocationContext);
   const [filterType, setFilterType] = useState<string>("");
+  const [searchLocation, setSearchLocation] = useState<string>("");
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle slot="start">First Step App</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-
       <IonContent>
-        <IonTitle className="ion-margin">Locations</IonTitle>
-        <IonSelect
-          className="ion-margin"
-          value={filterType}
-          placeholder="Select the lcoation type"
-          onIonChange={(e) => setFilterType(e.detail.value!)}
-        >
-          <IonSelectOption key="club" value="club">
-            club
-          </IonSelectOption>
-          <IonSelectOption key="restaurant" value="restaurant">
-            restaurant
-          </IonSelectOption>
-          <IonSelectOption key="cafenea" value="cafenea">
-            cafenea
-          </IonSelectOption>
-          <IonSelectOption key="biblioteca" value="biblioteca">
-            biblioteca
-          </IonSelectOption>
-        </IonSelect>
-
-        <IonButton className="ion-margin" onClick={() => setFilterType("")}>
-          Reset Filters
-        </IonButton>
         <IonLoading isOpen={fetching} message="Fetching Items" />
 
-        <IonList>
+        <IonSearchbar className="ion-padding page" value={searchLocation} debounce={500} onIonChange={e => setSearchLocation(e.detail.value!)}
+                      animated={true} placeholder="Search"></IonSearchbar>
+        <IonGrid className="page">
+          <IonRow>
+            <IonCol>
+              <IonButton onClick={() => setFilterType("Club")} className="frame" shape="round">Clubs</IonButton>
+            </IonCol>
+            <IonCol>
+              <IonButton onClick={() => setFilterType("Restaurant")} className="frame" shape="round">Restaurants</IonButton>
+            </IonCol>
+            <IonCol>
+              <IonButton onClick={() => setFilterType("Cafenea")} className="frame ion-text-wrap" shape="round">Coffee Shops</IonButton>
+            </IonCol>
+            <IonCol>
+              <IonButton onClick={() => setFilterType("Biblioteca")} className="frame" shape="round">Libraries</IonButton>
+            </IonCol>
+          </IonRow>
+        </IonGrid>
+
+        <IonList className="page">
           {locations
-            ?.filter(
-              (location) =>
-                !filterType ||
-                location.type!.toLowerCase() === filterType.toLowerCase()
-            )
+              ?.filter(location =>
+                  (!filterType || location.type === filterType) &&
+                  location.name.toLowerCase().indexOf(searchLocation.toLowerCase()) >= 0)
             .map(
               ({
                 locationId,
