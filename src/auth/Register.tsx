@@ -13,7 +13,7 @@ import {
   IonTitle,
   IonToast,
   IonFabButton,
-  IonIcon,
+  IonIcon, IonSelect, IonSelectOption,
 } from "@ionic/react";
 import { RegisterContext } from "./RegisterProvider";
 import "./styles/main.css";
@@ -144,21 +144,17 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
               onIonChange={handlePasswordChange}
             />
           </IonItem>
-          <IonItem className="login-input" color="transparent">
-            <IonLabel position="floating">University</IonLabel>
-            <IonInput
-              type="text"
-              value={university}
-              onIonChange={handleUniversityChange}
-            />
+          <IonItem className="ion-margin" color="transparent">
+            <IonSelect value={university} label="University" labelPlacement="floating" onIonChange={handleUniversityChange}>
+              <IonSelectOption value="Universitatea Babes Bolyai">Universitatea Babes Bolyai</IonSelectOption>
+              <IonSelectOption value="Universitatea Tehnica din Cluj-Napoca">Universitatea Tehnica din Cluj-Napoca</IonSelectOption>
+            </IonSelect>
           </IonItem>
-          <IonItem className="login-input" color="transparent">
-            <IonLabel position="floating">Faculty</IonLabel>
-            <IonInput
-              type="text"
-              value={faculty}
-              onIonChange={handleFacultyChange}
-            />
+          <IonItem className="ion-margin" color="transparent">
+            <IonSelect value={faculty} label="Faculty" labelPlacement="floating" onIonChange={handleFacultyChange}>
+              <IonSelectOption value="Facultatea de Matematica si Informatica">Facultatea de Matematica si Informatica</IonSelectOption>
+              <IonSelectOption value="Facultatea de Automatica si Calculatoare">Facultatea de Automatica si Calculatoare</IonSelectOption>
+            </IonSelect>
           </IonItem>
           <IonButton
             color="dark"

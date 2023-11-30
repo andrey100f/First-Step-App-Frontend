@@ -15,7 +15,7 @@ import {
   IonSearchbar,
   IonGrid,
   IonCol,
-  IonRow, IonFabButton, IonIcon,
+  IonRow, IonFabButton, IonIcon, IonText,
 } from "@ionic/react";
 import MyMap from "../utils/location/MyMap";
 import { chevronBack, search } from "ionicons/icons";
@@ -58,18 +58,28 @@ const Location: React.FC<LocationProps> = ({
               </IonFabButton>
             </IonToolbar>
           </IonHeader>
-          <IonContent className="ion-padding">
-            {days.map((day) => (
-              <p key={"" + locationId + `${day} program`}>{day}</p>
-            ))}
+          <IonContent className="ion-padding page">
+            <IonCard className="program-card">
+              <IonCardContent>
+                <IonCardSubtitle className="program-title">Program:</IonCardSubtitle>
+                {days.map((day) => (
+                      <IonText className="program" key={"" + locationId + `${day} program`}>{day}</IonText>
+                ))}
+              </IonCardContent>
+            </IonCard>
 
-            {latitude && longitude && (
-              <MyMap
-                key={"" + locationId + " location"}
-                lat={latitude}
-                lng={longitude}
-              />
-            )}
+            <IonCard className="map-card">
+              <IonCardContent>
+                {latitude && longitude && (
+                    <MyMap
+                        key={"" + locationId + " location"}
+                        lat={latitude}
+                        lng={longitude}
+                    />
+                )}
+              </IonCardContent>
+            </IonCard>
+
           </IonContent>
         </IonModal>
       </IonCardContent>

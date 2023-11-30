@@ -31,18 +31,12 @@
 }
 
 .page{
-    background-color: #f5f5f5;
+    --background: #f5f5f5;
 }
 
 .search-bar {
-    /*display: flex;*/
-    /*width: 394px;*/
-    /*padding: 15.028px 296px 14.972px 16px;*/
-    /*align-items: flex-end;*/
-    /*gap: 16px;*/
     border-radius: 50px;
     border: 1px solid #E0E0E0;
-    /*background: #FFF;*/
 }
 
 .frame {
@@ -61,4 +55,36 @@
 
 .frame:focus {
     --background: #c9e1f6;
+}
+
+.program {
+    display: block;
+    color: #666;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.program-title {
+    color: #3C3C43;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.program-card {
+    padding: 24px;
+    gap: 32px;
+    border-radius: 12px;
+    background: #FFF;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.map-card {
+    display: flex;
+    border-radius: 12px;
+    background: #FFF;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.51);
 }

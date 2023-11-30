@@ -17,7 +17,7 @@ const MyMap: React.FC<MyMapProps> = ({ lat, lng }) => {
         ref={mapRef}
         style={{
           display: "block",
-          width: 300,
+          width: 325,
           height: 400,
         }}
       ></capacitor-google-map>
