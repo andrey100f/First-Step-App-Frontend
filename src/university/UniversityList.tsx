@@ -1,19 +1,23 @@
-import React, {useContext, useState} from "react";
-import {UniversityProps} from "./UniversityProps";
-import {UniversityContext} from "./UniversityProvider";
-import {IonContent, IonList, IonPage, IonSearchbar} from "@ionic/react";
-import University from "./University";
-import "./styles/main.css"
+import React, { useContext, useState } from "react";
+import { IonContent, IonList, IonLoading, IonPage, IonSearchbar } from "@ionic/react";
 
-const UniversityList: React.FC<UniversityProps> = () => {
+import { UniversityProps } from "./UniversityProps";
+import { UniversityContext } from "./UniversityProvider";
+import { University } from "./University";
+
+import "../utils/styles/main.css";
+
+export const UniversityList: React.FC<UniversityProps> = () => {
     const {universities, fetching, fetchingError} = useContext(UniversityContext);
     const [searchUniversity, setSearchUniversity] = useState<string>("");
 
     return (
         <IonPage>
             <IonContent>
-                <IonSearchbar className="ion-padding page" value={searchUniversity} debounce={500} onIonChange={e => setSearchUniversity(e.detail.value!)}
+                <IonSearchbar className="ion-padding" value={searchUniversity} debounce={500} onIonChange={e => setSearchUniversity(e.detail.value!)}
                               animated={true} placeholder="Search"></IonSearchbar>
+
+                <IonLoading isOpen={fetching} message="Fetching Items" />
 
                 <IonList className="page">
                     {universities
@@ -32,5 +36,3 @@ const UniversityList: React.FC<UniversityProps> = () => {
         </IonPage>
     );
 }
-
-export default UniversityList;

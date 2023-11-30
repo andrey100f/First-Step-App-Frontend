@@ -1,16 +1,7 @@
 import { Redirect, Route } from "react-router-dom";
-import {
-  IonApp,
-  IonIcon,
-  IonLabel,
-  IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
-  IonTabs,
-  setupIonicReact,
-} from "@ionic/react";
+import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, setupIonicReact,} from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { EditUser } from "./auth/EditUser";
+import React, {useEffect, useState } from "react";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -30,26 +21,29 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
+
 import { AnnouncementProvider } from "./announcement/AnnouncementProvider";
 import { home, location, person } from "ionicons/icons";
-import React, { useContext, useEffect, useState } from "react";
-import LocationList from "./location/LocationList";
+import { LocationList } from "./location/LocationList";
 import { LocationProvider } from "./location/LocationProvider";
 import { Login } from "./auth/Login";
-import { AuthContext, LoginProvider, AuthState } from "./auth/LoginProvider";
+import { LoginProvider } from "./auth/LoginProvider";
 import { PrivateRoute } from "./auth/PrivateRoute";
 import { Register } from "./auth/Register";
 import { RegisterProvider } from "./auth/RegisterProvider";
 import { usePreferences } from "./utils/usePreferemces";
-import {LandingPage} from "./auth/LandingPage";
-import UniversityList from "./university/UniversityList";
-import {UniversityProvider} from "./university/UniversityProvider";
-import "./styles/main.css";
+import { LandingPage } from "./auth/LandingPage";
+import { UniversityList } from "./university/UniversityList";
+import { UniversityProvider } from "./university/UniversityProvider";
+import { EventProvider } from "./event/EventProvider";
+import { EditUser } from "./auth/EditUser";
+
+import "./utils/styles/main.css";
 
 setupIonicReact();
 
 const App: React.FC = () => {
-  const { get, set } = usePreferences();
+  const { get } = usePreferences();
   const [token, setToken] = useState("");
   useEffect(() => {
     const getToken = async () => {
@@ -74,28 +68,15 @@ const App: React.FC = () => {
                   <LocationProvider>
                     <AnnouncementProvider>
                       <UniversityProvider>
-                      <PrivateRoute
-                        path="/announcements"
-                        component={UniversityList}
-                        exact={true}
-                      />
-                      <PrivateRoute
-                        path="/locations"
-                        component={LocationList}
-                        exact={true}
-                      />
-                      <PrivateRoute
-                        path="/edit"
-                        component={EditUser}
-                        exact={true}
-                      />
+                        <EventProvider>
+                          <PrivateRoute path="/announcements" component={UniversityList} exact={true}/>
+                          <PrivateRoute path="/locations" component={LocationList} exact={true}/>
+                          <PrivateRoute path="/edit" component={EditUser} exact={true}/>
+                        </EventProvider>
                       </UniversityProvider>
                     </AnnouncementProvider>
                   </LocationProvider>
-                  <Route
-                    exact
-                    path="/"
-                    render={() => <Redirect to="/announcements" />}
+                  <Route exact path="/" render={() => <Redirect to="/announcements" />}
                   />
                 </RegisterProvider>
               </LoginProvider>
@@ -130,29 +111,15 @@ const App: React.FC = () => {
                 <LocationProvider>
                   <AnnouncementProvider>
                     <UniversityProvider>
-                    <PrivateRoute
-                      path="/announcements"
-                      component={UniversityList}
-                      exact={true}
-                    />
-                    <PrivateRoute
-                      path="/locations"
-                      component={LocationList}
-                      exact={true}
-                    />
-                    <PrivateRoute
-                      path="/edit"
-                      component={EditUser}
-                      exact={true}
-                    />
+                      <EventProvider>
+                        <PrivateRoute path="/announcements" component={UniversityList} exact={true}/>
+                        <PrivateRoute path="/locations" component={LocationList} exact={true}/>
+                        <PrivateRoute path="/edit" component={EditUser} exact={true}/>
+                      </EventProvider>
                     </UniversityProvider>
                   </AnnouncementProvider>
                 </LocationProvider>
-                <Route
-                  exact
-                  path="/"
-                  render={() => <Redirect to="/announcements" />}
-                />
+                <Route exact path="/" render={() => <Redirect to="/announcements" />}/>
               </RegisterProvider>
             </LoginProvider>
           </IonRouterOutlet>

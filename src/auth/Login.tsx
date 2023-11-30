@@ -1,24 +1,12 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
+import { IonButton, IonContent, IonFabButton, IonIcon, IonInput, IonItem, IonLabel, IonLoading, IonPage, IonTitle, IonToast } from "@ionic/react";
+import { chevronBack } from "ionicons/icons";
+
 import { usePreferences } from "../utils/usePreferemces";
 import { AuthContext } from "./LoginProvider";
-import {
-  IonButton,
-  IonContent,
-  IonFabButton,
-  IonIcon,
-  IonInput,
-  IonItem,
-  IonLabel,
-  IonLoading,
-  IonPage,
-  IonTitle,
-  IonToast,
-} from "@ionic/react";
-import "./styles/main.css";
-import { Simulate } from "react-dom/test-utils";
-import ended = Simulate.ended;
-import { chevronBack, chevronForwardCircle, handLeft } from "ionicons/icons";
+
+import "../utils/styles/main.css";
 
 interface LoginState {
   email?: string;
@@ -84,62 +72,29 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
   return (
     <IonPage>
       <IonContent>
-        <IonFabButton
-          color="medium"
-          className="ion-margin"
-          onClick={handleBack}
-        >
+        <IonFabButton color="medium" className="ion-margin" onClick={handleBack}>
           <IonIcon icon={chevronBack}></IonIcon>
         </IonFabButton>
-        <IonTitle className="login-title">Welcome Back!</IonTitle>
+        <IonTitle className="login-title auth-title">Welcome Back!</IonTitle>
         <p className="login-subtitle">Enter Your Username and Password</p>
         <div className="ion-padding login-background">
-          <IonItem
-            className="login-input email bg-transparent"
-            color="transparent"
-          >
+          <IonItem className="login-input email" color="transparent">
             <IonLabel position="floating">Email</IonLabel>
-            <IonInput
-              type="email"
-              value={email}
-              onIonChange={handleEmailChange}
-            />
+            <IonInput type="email" value={email} onIonChange={handleEmailChange}/>
           </IonItem>
           <IonItem className="login-input" color="transparent">
             <IonLabel position="floating">Password</IonLabel>
-            <IonInput
-              type="password"
-              value={password}
-              onIonChange={handlePasswordChange}
-            />
+            <IonInput type="password" value={password} onIonChange={handlePasswordChange}/>
           </IonItem>
-          <IonButton
-            color="dark"
-            className="ion-margin-top login-button"
-            shape="round"
-            onClick={handleLogin}
-          >
-            Log In
-          </IonButton>
-          <IonButton
-            color="dark"
-            className="ion-margin-top login-button"
-            shape="round"
-            onClick={handleRegister}
-          >
-            Register
-          </IonButton>
+          <IonButton color="dark" className="ion-margin-top login-button" shape="round" onClick={handleLogin}>Log In</IonButton>
+          <IonButton color="dark" className="ion-margin-top login-button" shape="round" onClick={handleRegister}>Register</IonButton>
         </div>
 
         <IonLoading isOpen={isAuthenticating} />
 
         {authenticationError && (
-          <IonToast
-            isOpen={true}
-            className="ion-color-danger"
-            duration={2000}
-            message={authenticationError.message || "Failed to authenticate"}
-          ></IonToast>
+          <IonToast isOpen={true} className="ion-color-danger" duration={2000}
+                    message={authenticationError.message || "Failed to authenticate"}></IonToast>
         )}
       </IonContent>
     </IonPage>

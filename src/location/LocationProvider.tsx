@@ -1,27 +1,17 @@
+import React, { useEffect, useReducer, useState } from "react";
+
 import { LocationProps } from "./LocationProps";
-import React, {useEffect, useReducer, useState} from "react";
-import PropTypes from "prop-types";
 import { getLocations } from "./LocationApi";
-import {usePreferences} from "../utils/usePreferemces";
+import { usePreferences } from "../utils/usePreferemces";
+import { ActionProps, FETCHING_FAILED, FETCHING_STARTED, FETCHING_SUCCEEDED, ItemProviderProps, ItemState } from "../utils/provider";
 
-export interface LocationState {
+export interface LocationState extends ItemState{
   locations?: LocationProps[];
-  fetching: boolean;
-  fetchingError?: Error | null;
-}
-
-interface ActionProps {
-  type: string;
-  payload?: any;
 }
 
 const initialState: LocationState = {
   fetching: false,
 };
-
-const FETCHING_STARTED = "FETCHING_STARTED";
-const FETCHING_SUCCEEDED = "FETCHING_SUCCEEDED";
-const FETCHING_FAILED = "FETCHING_FAILED";
 
 const reducer: (state: LocationState, action: ActionProps) => LocationState = (
   state,
@@ -41,16 +31,12 @@ const reducer: (state: LocationState, action: ActionProps) => LocationState = (
 
 export const LocationContext = React.createContext<LocationState>(initialState);
 
-interface AnnouncementProviderProps {
-  children: PropTypes.ReactNodeLike;
-}
-
-export const LocationProvider: React.FC<AnnouncementProviderProps> = ({
+export const LocationProvider: React.FC<ItemProviderProps> = ({
   children,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { locations, fetching, fetchingError } = state;
-  const {get, set} = usePreferences();
+  const {get} = usePreferences();
   const [token, setToken] = useState("");
 
   useEffect(() => {

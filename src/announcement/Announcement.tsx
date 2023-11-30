@@ -1,21 +1,11 @@
-import { AnnouncementProps } from "./AnnouncementProps";
 import React from "react";
-import {
-  IonButton,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle, IonChip,
-} from "@ionic/react";
-import "../university/styles/main.css";
-import "./styles/main.css";
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle } from "@ionic/react";
 
-const Announcement: React.FC<AnnouncementProps> = ({
-  title,
-  text,
-  url,
-}) => {
+import { AnnouncementProps } from "./AnnouncementProps";
+
+import "../utils/styles/main.css";
+
+export const Announcement: React.FC<AnnouncementProps> = ({title, text, url,}) => {
   const handleClick = () => {
     window.location.href = url;
   }
@@ -33,5 +23,3 @@ const Announcement: React.FC<AnnouncementProps> = ({
     </IonCard>
   );
 };
-
-export default Announcement;

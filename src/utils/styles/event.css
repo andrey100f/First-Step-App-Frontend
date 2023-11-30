@@ -1,0 +1,7 @@
+.event-card {
+    padding: 24px;
+    gap: 10px;
+    border-radius: 12px;
+    background: #FFF;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}

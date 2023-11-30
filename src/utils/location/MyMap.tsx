@@ -7,7 +7,7 @@ interface MyMapProps {
   lng: number;
 }
 
-const MyMap: React.FC<MyMapProps> = ({ lat, lng }) => {
+export const MyMap: React.FC<MyMapProps> = ({ lat, lng }) => {
   const mapRef = useRef<HTMLElement>(null);
   useEffect(myMapEffect, [mapRef.current]);
 
@@ -53,5 +53,3 @@ const MyMap: React.FC<MyMapProps> = ({ lat, lng }) => {
     }
   }
 };
-
-export default MyMap;

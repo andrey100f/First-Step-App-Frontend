@@ -1,25 +1,12 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
+import { IonButton, IonContent, IonInput, IonItem, IonLabel, IonLoading, IonPage, IonTitle, IonToast, IonFabButton, IonIcon, IonSelect, IonSelectOption } from "@ionic/react";
 import { RouteComponentProps } from "react-router";
+import { chevronBack } from "ionicons/icons";
+
 import { usePreferences } from "../utils/usePreferemces";
-import {
-  IonButton,
-  IonContent,
-  IonHeader,
-  IonInput,
-  IonItem,
-  IonLabel,
-  IonLoading,
-  IonPage,
-  IonTitle,
-  IonToast,
-  IonFabButton,
-  IonIcon, IonSelect, IonSelectOption,
-} from "@ionic/react";
 import { RegisterContext } from "./RegisterProvider";
-import "./styles/main.css";
-import { Simulate } from "react-dom/test-utils";
-import { AuthContext } from "./LoginProvider";
-import { chevronBack, chevronForwardCircle, handLeft } from "ionicons/icons";
+
+import "../utils/styles/main.css";
 
 interface RegisterState {
   name?: string;
@@ -98,10 +85,6 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
     }, 1000);
   }, [name, email, password, university, faculty]);
 
-  const handleLogin = () => {
-    history.push("/login");
-  };
-
   useEffect(() => {
     if (isRegistered || token) {
       history.push("/");
@@ -115,14 +98,10 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
   return (
     <IonPage>
       <IonContent>
-        <IonFabButton
-          color="medium"
-          className="ion-margin"
-          onClick={handleBack}
-        >
+        <IonFabButton color="medium" className="ion-margin" onClick={handleBack}>
           <IonIcon icon={chevronBack}></IonIcon>
         </IonFabButton>
-        <IonTitle className="register-title">Create Account</IonTitle>
+        <IonTitle className="auth-title">Create Account</IonTitle>
         <div className="ion-padding register-background">
           <IonItem className="login-input email" color="transparent">
             <IonLabel position="floating">Name</IonLabel>
@@ -130,19 +109,11 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
           </IonItem>
           <IonItem className="login-input" color="transparent">
             <IonLabel position="floating">Email</IonLabel>
-            <IonInput
-              type="email"
-              value={email}
-              onIonChange={handleEmailChange}
-            />
+            <IonInput type="email" value={email} onIonChange={handleEmailChange}/>
           </IonItem>
           <IonItem className="login-input" color="transparent">
             <IonLabel position="floating">Password</IonLabel>
-            <IonInput
-              type="password"
-              value={password}
-              onIonChange={handlePasswordChange}
-            />
+            <IonInput type="password" value={password} onIonChange={handlePasswordChange}/>
           </IonItem>
           <IonItem className="ion-margin" color="transparent">
             <IonSelect value={university} label="University" labelPlacement="floating" onIonChange={handleUniversityChange}>
@@ -156,34 +127,17 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
               <IonSelectOption value="Facultatea de Automatica si Calculatoare">Facultatea de Automatica si Calculatoare</IonSelectOption>
             </IonSelect>
           </IonItem>
-          <IonButton
-            color="dark"
-            className="ion-margin-top login-button"
-            shape="round"
-            onClick={handleRegister}
-          >
-            Sign Up
-          </IonButton>
+          <IonButton color="dark" className="ion-margin-top login-button" shape="round" onClick={handleRegister}>Sign Up</IonButton>
         </div>
 
         <IonLoading isOpen={isRegistering} />
 
         {isRegistered && (
-          <IonToast
-            isOpen={true}
-            className="ion-color-success"
-            duration={2000}
-            message={"Registered successfully"}
-          ></IonToast>
+          <IonToast isOpen={true} className="ion-color-success" duration={2000} message={"Registered successfully"}></IonToast>
         )}
 
         {registrationError && (
-          <IonToast
-            isOpen={true}
-            className="ion-color-danger"
-            duration={2000}
-            message={registrationError.message || "Failed to register"}
-          ></IonToast>
+          <IonToast isOpen={true} className="ion-color-danger" duration={2000} message={registrationError.message || "Failed to register"}></IonToast>
         )}
       </IonContent>
     </IonPage>

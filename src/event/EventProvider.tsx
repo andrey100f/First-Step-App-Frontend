@@ -1,36 +1,41 @@
 import React, { useEffect, useReducer, useState } from "react";
 
-import { UniversityProps } from "./UniversityProps";
+import { EventProps } from "./EventProps";
 import { usePreferences } from "../utils/usePreferemces";
-import { getUniversities } from "./UniversityApi";
+import { getAllEvents } from "./EventApi";
 import { ActionProps, FETCHING_FAILED, FETCHING_STARTED, FETCHING_SUCCEEDED, ItemProviderProps, ItemState } from "../utils/provider";
 
-export interface UniversityState extends ItemState {
-    universities?: UniversityProps[],
+export interface EventState extends ItemState {
+    events?: EventProps[];
 }
 
-const initialState = {
+const initialState: EventState = {
     fetching: false,
-}
+};
 
-const reducer: (state: UniversityState, action: ActionProps) => UniversityState = (state, {type, payload}) => {
+const reducer: (state: EventState, action: ActionProps) => EventState = (
+    state,
+    { type, payload }
+) => {
     switch (type) {
         case FETCHING_STARTED:
             return { ...state, fetching: true, fetchingError: null };
         case FETCHING_SUCCEEDED:
-            return { ...state, universities: payload.universities, fetching: false };
+            return { ...state, events: payload.events, fetching: false };
         case FETCHING_FAILED:
             return { ...state, fetchingError: payload.error, fetching: false };
         default:
             return state;
     }
-}
+};
 
-export const UniversityContext = React.createContext<UniversityState>(initialState);
+export const EventContext = React.createContext<EventState>(initialState);
 
-export const UniversityProvider: React.FC<ItemProviderProps> = ({children}) => {
+export const EventProvider: React.FC<ItemProviderProps> = ({
+    children
+}) => {
     const [state, dispatch] = useReducer(reducer, initialState);
-    const {universities, fetching, fetchingError} = state;
+    const {events, fetching, fetchingError} = state;
     const {get} = usePreferences();
     const [token, setToken] = useState("");
 
@@ -43,41 +48,42 @@ export const UniversityProvider: React.FC<ItemProviderProps> = ({children}) => {
         getToken();
     }, []);
 
-    useEffect(getUniversitiesEffect, [token]);
+    useEffect(getEventsEffect, [token]);
 
-    const value = {universities, fetching, fetchingError};
+    const value = {events, fetching, fetchingError};
 
     return (
-        <UniversityContext.Provider value={value}>
+        <EventContext.Provider value={value}>
             {children}
-        </UniversityContext.Provider>
+        </EventContext.Provider>
     );
 
-    function getUniversitiesEffect() {
+    function getEventsEffect() {
         let canceled = false;
 
         if(token) {
-            fetchUniversities();
+            fetchEvents();
         }
 
         return () => {
             canceled = true;
         }
 
-        async function fetchUniversities() {
+        async function fetchEvents() {
             try {
                 dispatch({ type: FETCHING_STARTED });
 
-                const universities = await getUniversities(token);
+                const events = await getAllEvents(token);
 
-                if (!canceled) {
-                    dispatch({ type: FETCHING_SUCCEEDED, payload: { universities } });
+                if(!canceled) {
+                    dispatch({ type: FETCHING_SUCCEEDED, payload: { events } });
                 }
-            } catch (error) {
+            }
+            catch (error) {
                 if (!canceled) {
                     dispatch({ type: FETCHING_FAILED, payload: { error } });
                 }
             }
         }
     }
-}
+};
