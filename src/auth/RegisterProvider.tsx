@@ -1,11 +1,11 @@
-import React, {useCallback, useEffect, useState} from "react";
-import PropTypes from "prop-types";
-import {register as registerApi } from "./AuthApi";
-import {usePreferences} from "../utils/usePreferemces";
+import React, { useCallback, useEffect, useState } from "react";
+
+import { register as registerApi } from "./AuthApi";
+import { ItemProviderProps } from "../utils/provider";
 
 type RegisterFn = (name?: string, email?: string, password?: string, university?: string, faculty?: string) => void;
 
-export interface RegisterState {
+interface RegisterState {
     registrationError: Error | null;
     isRegistered: boolean;
     isRegistering: boolean;
@@ -27,11 +27,7 @@ const initialState: RegisterState = {
 
 export const RegisterContext = React.createContext<RegisterState>(initialState);
 
-interface RegisterProviderProps {
-    children: PropTypes.ReactNodeLike,
-}
-
-export const RegisterProvider: React.FC<RegisterProviderProps> = ({children}) => {
+export const RegisterProvider: React.FC<ItemProviderProps> = ({children}) => {
     const [state, setState] = useState<RegisterState>(initialState);
     const {isRegistered, isRegistering, registrationError, pendingRegistration} = state;
     const register = useCallback<RegisterFn>(registerCallback, []);
@@ -81,7 +77,7 @@ export const RegisterProvider: React.FC<RegisterProviderProps> = ({children}) =>
                 const {name, email, password, university, faculty} = state;
                 const {token} = await registerApi(name, email, password, university, faculty);
 
-                if(canceled) {
+                if(!canceled) {
                     return
                 }
 
@@ -93,7 +89,7 @@ export const RegisterProvider: React.FC<RegisterProviderProps> = ({children}) =>
                 });
             }
             catch (error) {
-                if(canceled) {
+                if(!canceled) {
                     return;
                 }
 

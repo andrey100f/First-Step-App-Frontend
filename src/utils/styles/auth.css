@@ -2,7 +2,6 @@
     margin-top: 120px;
     background: url("../assets/background.svg");
     height: 545px;
-    flex-shrink: 0;
     fill: #E0FFDD;
 }
 
@@ -13,7 +12,6 @@
 .login-input {
     height: 56px;
     width: auto;
-    flex-shrink: 0;
     stroke-width: 1px;
     margin-left: 4px;
     margin-bottom: 20px;
@@ -27,9 +25,7 @@
     height: 61px;
     flex-direction: column;
     justify-content: center;
-    flex-shrink: 0;
     color: #565656;
-    font-family: Inter, serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 600;
@@ -39,15 +35,16 @@
 
 .login-title {
     margin-top: 55px;
+}
+
+.auth-title{
     margin-left: 18px;
     display: flex;
     width: 500px;
     height: 61px;
     flex-direction: column;
     justify-content: center;
-    flex-shrink: 0;
     color: #000;
-    font-family: Inter, serif;
     font-size: 32px;
     font-style: normal;
     font-weight: 700;
@@ -57,11 +54,10 @@
 .login-button {
     width: 229px;
     height: 54px;
-    flex-shrink: 0;
     margin: 20px 75px;
 }
 
-.landing {
+.landing-background {
     background: url("../assets/landing_background.png") no-repeat;
     height: 625px;
     width: 100%;
@@ -79,30 +75,9 @@
 
 .register-background {
     height: 713px;
-    flex-shrink: 0;
     background: url("../assets/register.svg");
     fill: rgba(242, 0, 87, 0.21);
 }
-
-.register-title{
-    margin-left: 18px;
-    display: flex;
-    width: 500px;
-    height: 61px;
-    flex-direction: column;
-    justify-content: center;
-    flex-shrink: 0;
-    color: #000;
-    font-family: Inter, serif;
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
-
-.bg-transparent {
-    background: transparent;
-  }
 
 .edit-user-title {
     display: flex;
@@ -110,7 +85,6 @@
     height: 111px;
     flex-direction: column;
     justify-content: center;
-    flex-shrink: 0;
     color: #000;
     font-size: 32px;
     font-style: normal;
@@ -126,6 +100,6 @@
     background: url("../assets/edit-user.svg") no-repeat;
 }
 
-.edit {
+.edit-button {
     margin-left: 90px;
 }

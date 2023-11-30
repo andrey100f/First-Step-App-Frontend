@@ -1,7 +1,8 @@
-import React, {useCallback, useEffect, useState} from "react";
-import PropTypes from "prop-types";
-import {login as loginApi } from "./AuthApi";
-import {usePreferences} from "../utils/usePreferemces";
+import React, { useCallback, useEffect, useState } from "react";
+
+import { login as loginApi } from "./AuthApi";
+import { usePreferences } from "../utils/usePreferemces";
+import { ItemProviderProps } from "../utils/provider";
 
 type LoginFn = (email?: string, password?: string) => void;
 
@@ -24,12 +25,8 @@ const initialState: AuthState = {
 
 export const AuthContext = React.createContext<AuthState>(initialState);
 
-interface AuthProviderProps {
-    children: PropTypes.ReactNodeLike,
-}
-
-export const LoginProvider: React.FC<AuthProviderProps> = ({children}) => {
-    const {get, set} = usePreferences();
+export const LoginProvider: React.FC<ItemProviderProps> = ({children}) => {
+    const {set} = usePreferences();
     const [state, setState] = useState<AuthState>(initialState);
     const {isAuthenticated, isAuthenticating, authenticationError, pendingAuthentication} = state;
     const login = useCallback<LoginFn>(loginCallback, []);
@@ -76,9 +73,8 @@ export const LoginProvider: React.FC<AuthProviderProps> = ({children}) => {
                 const {email, password} = state;
                 const {token} = await loginApi(email, password);
                 await set("fsaLoginToken", token);
-                console.log("token set");
 
-                if(canceled) {
+                if(!canceled) {
                     return
                 }
 
@@ -90,7 +86,7 @@ export const LoginProvider: React.FC<AuthProviderProps> = ({children}) => {
                 });
             }
             catch (error) {
-                if(canceled) {
+                if(!canceled) {
                     return;
                 }
 

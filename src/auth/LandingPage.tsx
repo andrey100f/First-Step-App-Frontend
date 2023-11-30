@@ -1,14 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
+import { IonButton, IonContent, IonPage, IonTitle } from "@ionic/react";
+
 import { usePreferences } from "../utils/usePreferemces";
-import {
-  IonButton,
-  IonContent,
-  IonHeader,
-  IonImg,
-  IonPage,
-  IonTitle,
-} from "@ionic/react";
 import { AuthContext } from "./LoginProvider";
 
 export const LandingPage: React.FC<RouteComponentProps> = ({ history }) => {
@@ -38,17 +32,10 @@ export const LandingPage: React.FC<RouteComponentProps> = ({ history }) => {
   return (
     <IonPage>
       <IonContent>
-        <div className="landing"></div>
+        <div className="landing-background"></div>
         <IonTitle className="landing-title">Let's Get</IonTitle>
         <IonTitle className="landing-title">Started</IonTitle>
-        <IonButton
-          color="dark"
-          className="ion-margin-top login-button"
-          shape="round"
-          onClick={handleJoin}
-        >
-          Join Now
-        </IonButton>
+        <IonButton color="dark" className="ion-margin-top login-button" shape="round" onClick={handleJoin}>Join Now</IonButton>
       </IonContent>
     </IonPage>
   );

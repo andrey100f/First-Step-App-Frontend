@@ -1,18 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
-import {
-    IonButton,
-    IonContent,
-    IonHeader,
-    IonInput,
-    IonItem,
-    IonLabel,
-    IonPage, IonSelect, IonSelectOption,
-    IonTitle,
-    IonToolbar,
-} from "@ionic/react";
+import { IonButton, IonContent, IonInput, IonItem, IonLabel, IonPage, IonSelect, IonSelectOption, IonTitle, IonToolbar } from "@ionic/react";
+
 import { usePreferences } from "../utils/usePreferemces";
-import "./styles/main.css";
+
+import "../utils/styles/main.css";
 
 interface UpdateState {
   name?: string;
@@ -22,7 +14,7 @@ interface UpdateState {
   faculty?: string;
 }
 
-export const EditUser: React.FC<RouteComponentProps> = ({ history }) => {
+export const EditUser: React.FC<RouteComponentProps> = () => {
   const [state, setState] = useState<UpdateState>({});
   const { name, email, password, university, faculty } = state;
   const { get, set } = usePreferences();
@@ -90,15 +82,7 @@ export const EditUser: React.FC<RouteComponentProps> = ({ history }) => {
   return (
     <IonPage>
         <IonToolbar>
-          <IonButton
-            className="ion-margin"
-            slot="end"
-            color="dark"
-            shape="round"
-            onClick={handleLogOut}
-          >
-            Log Out
-          </IonButton>
+          <IonButton className="ion-margin" slot="end" color="dark" shape="round" onClick={handleLogOut}>Log Out</IonButton>
         </IonToolbar>
 
       <IonContent>
@@ -114,31 +98,21 @@ export const EditUser: React.FC<RouteComponentProps> = ({ history }) => {
           </IonItem>
           <IonItem className="ion-margin login-input" color="transparent">
             <IonLabel position="floating">Password</IonLabel>
-            <IonInput
-              type="password"
-              value={password}
-              onIonChange={handlePasswordChange}
-            />
+            <IonInput type="password" value={password} onIonChange={handlePasswordChange}/>
           </IonItem>
             <IonItem className="ion-margin" color="transparent">
-                <IonSelect value={university} label="University" labelPlacement="floating">
+                <IonSelect value={university} label="University" labelPlacement="floating" onIonChange={handleUniversityChange}>
                     <IonSelectOption value="Universitatea Babes Bolyai">Universitatea Babes Bolyai</IonSelectOption>
                     <IonSelectOption value="Universitatea Tehnica din Cluj-Napoca">Universitatea Tehnica din Cluj-Napoca</IonSelectOption>
                 </IonSelect>
             </IonItem>
             <IonItem className="ion-margin" color="transparent">
-                <IonSelect value={faculty} label="Faculty" labelPlacement="floating">
+                <IonSelect value={faculty} label="Faculty" labelPlacement="floating" onIonChange={handleFacultyChange}>
                     <IonSelectOption value="Facultatea de Matematica si Informatica">Facultatea de Matematica si Informatica</IonSelectOption>
                     <IonSelectOption value="Facultatea de Automatica si Calculatoare">Facultatea de Automatica si Calculatoare</IonSelectOption>
                 </IonSelect>
             </IonItem>
-          <IonButton
-            className="ion-margin-top login-button edit"
-            shape="round"
-            color="dark"
-          >
-            Update
-          </IonButton>
+          <IonButton className="ion-margin-top login-button edit-button" shape="round" color="dark">Update</IonButton>
         </div>
       </IonContent>
     </IonPage>

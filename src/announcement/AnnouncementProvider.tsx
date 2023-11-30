@@ -1,32 +1,22 @@
+import React, { useEffect, useReducer, useState } from "react";
+
 import { AnnouncementProps } from "./AnnouncementProps";
-import React, {useEffect, useReducer, useState} from "react";
-import PropTypes from "prop-types";
 import { getAnnouncements } from "./AnnouncementApi";
-import {usePreferences} from "../utils/usePreferemces";
+import { usePreferences } from "../utils/usePreferemces";
+import { ActionProps, FETCHING_FAILED, FETCHING_STARTED, FETCHING_SUCCEEDED, ItemProviderProps, ItemState } from "../utils/provider";
 
-export interface AnnouncementItemState {
+export interface AnnouncementState extends ItemState{
   announcements?: AnnouncementProps[];
-  fetching: boolean;
-  fetchingError?: Error | null;
 }
 
-interface ActionProps {
-  type: string;
-  payload?: any;
-}
-
-const initialState: AnnouncementItemState = {
+const initialState: AnnouncementState = {
   fetching: false,
 };
 
-const FETCHING_STARTED = "FETCHING_STARTED";
-const FETCHING_SUCCEEDED = "FETCHING_SUCCEEDED";
-const FETCHING_FAILED = "FETCHING_FAILED";
-
 const reducer: (
-  state: AnnouncementItemState,
+  state: AnnouncementState,
   action: ActionProps
-) => AnnouncementItemState = (state, { type, payload }) => {
+) => AnnouncementState = (state, { type, payload }) => {
   switch (type) {
     case FETCHING_STARTED:
       return { ...state, fetching: true, fetchingError: null };
@@ -43,19 +33,12 @@ const reducer: (
   }
 };
 
-export const AnnouncementItemContext =
-  React.createContext<AnnouncementItemState>(initialState);
+export const AnnouncementItemContext = React.createContext<AnnouncementState>(initialState);
 
-interface AnnouncementProviderProps {
-  children: PropTypes.ReactNodeLike;
-}
-
-export const AnnouncementProvider: React.FC<AnnouncementProviderProps> = ({
-  children,
-}) => {
+export const AnnouncementProvider: React.FC<ItemProviderProps> = ({ children}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { announcements, fetching, fetchingError } = state;
-  const {get, set} = usePreferences();
+  const {get} = usePreferences();
   const [token, setToken] = useState<string>("");
 
   useEffect(() => {

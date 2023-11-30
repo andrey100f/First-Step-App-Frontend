@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext, AuthState } from "./LoginProvider";
-import { usePreferences } from "../utils/usePreferemces";
 import { Redirect, Route } from "react-router-dom";
 
-export interface PrivateRouteProps {
+import { AuthContext, AuthState } from "./LoginProvider";
+import { usePreferences } from "../utils/usePreferemces";
+
+interface PrivateRouteProps {
   component: any;
   path: string;
   exact?: boolean;
