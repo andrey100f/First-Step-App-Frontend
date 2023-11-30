@@ -7,7 +7,7 @@ import {
     IonCardHeader,
     IonCardTitle, IonContent, IonFabButton,
     IonHeader, IonIcon, IonList,
-    IonModal, IonTitle,
+    IonModal,
     IonToolbar
 } from "@ionic/react";
 import {AnnouncementItemContext} from "../announcement/AnnouncementProvider";
@@ -27,7 +27,7 @@ const University: React.FC<UniversityProps> = ({universityId, name, img}) => {
           </IonCardHeader>
 
           <IonCardContent>
-              <IonButton color="primary" shape="round" onClick={() => setIsOpen(true)}>
+              <IonButton className="button-color" shape="round" onClick={() => setIsOpen(true)}>
                   Anunturi pentru studenti
               </IonButton>
 

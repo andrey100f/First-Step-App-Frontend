@@ -1,15 +1,15 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import {
-  IonButton,
-  IonContent,
-  IonHeader,
-  IonInput,
-  IonItem,
-  IonLabel,
-  IonPage,
-  IonTitle,
-  IonToolbar,
+    IonButton,
+    IonContent,
+    IonHeader,
+    IonInput,
+    IonItem,
+    IonLabel,
+    IonPage, IonSelect, IonSelectOption,
+    IonTitle,
+    IonToolbar,
 } from "@ionic/react";
 import { usePreferences } from "../utils/usePreferemces";
 import "./styles/main.css";
@@ -120,14 +120,18 @@ export const EditUser: React.FC<RouteComponentProps> = ({ history }) => {
               onIonChange={handlePasswordChange}
             />
           </IonItem>
-          <IonItem className="ion-margin login-input" color="transparent">
-            <IonLabel position="floating">University</IonLabel>
-            <IonInput value={university} onIonChange={handleUniversityChange} />
-          </IonItem>
-          <IonItem className="ion-margin login-input" color="transparent">
-            <IonLabel position="floating">Faculty</IonLabel>
-            <IonInput value={faculty} onIonChange={handleFacultyChange} />
-          </IonItem>
+            <IonItem className="ion-margin" color="transparent">
+                <IonSelect value={university} label="University" labelPlacement="floating">
+                    <IonSelectOption value="Universitatea Babes Bolyai">Universitatea Babes Bolyai</IonSelectOption>
+                    <IonSelectOption value="Universitatea Tehnica din Cluj-Napoca">Universitatea Tehnica din Cluj-Napoca</IonSelectOption>
+                </IonSelect>
+            </IonItem>
+            <IonItem className="ion-margin" color="transparent">
+                <IonSelect value={faculty} label="Faculty" labelPlacement="floating">
+                    <IonSelectOption value="Facultatea de Matematica si Informatica">Facultatea de Matematica si Informatica</IonSelectOption>
+                    <IonSelectOption value="Facultatea de Automatica si Calculatoare">Facultatea de Automatica si Calculatoare</IonSelectOption>
+                </IonSelect>
+            </IonItem>
           <IonButton
             className="ion-margin-top login-button edit"
             shape="round"

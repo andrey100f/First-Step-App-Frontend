@@ -28,7 +28,7 @@ const Announcement: React.FC<AnnouncementProps> = ({
       </IonCardHeader>
 
       <IonCardContent>
-        <IonButton color="primary" shape="round" onClick={handleClick}>Go to website</IonButton>
+        <IonButton className="button-color" shape="round" onClick={handleClick}>Go to website</IonButton>
       </IonCardContent>
     </IonCard>
   );
