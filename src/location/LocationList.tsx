@@ -6,6 +6,7 @@ import {Location} from "./Location";
 import { LocationContext } from "./LocationProvider";
 
 import "../utils/styles/main.css";
+import  "../utils/styles/location.css";
 
 export const LocationList: React.FC<RouteComponentProps> = () => {
   const { locations, fetching, fetchingError } = useContext(LocationContext);

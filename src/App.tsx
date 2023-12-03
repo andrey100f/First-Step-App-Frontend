@@ -36,7 +36,7 @@ import { LandingPage } from "./auth/LandingPage";
 import { UniversityList } from "./university/UniversityList";
 import { UniversityProvider } from "./university/UniversityProvider";
 import { EventProvider } from "./event/EventProvider";
-import { EditUser } from "./auth/EditUser";
+import { EditUser } from "./user/EditUser";
 
 import "./utils/styles/main.css";
 
