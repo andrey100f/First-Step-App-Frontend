@@ -7,6 +7,10 @@
 }
 
 .page {
+    background: #f5f5f5;
+}
+
+.page-without-scrollbar {
     --background: #f5f5f5;
 }
 

@@ -9,6 +9,7 @@ import { EventContext } from "../event/EventProvider";
 import { Event } from "../event/Event";
 
 import "../utils/styles/main.css";
+import "../utils/styles/location.css";
 
 export const Location: React.FC<LocationProps> = ({locationId, name, type, latitude, longitude, img, description,}) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,7 +34,7 @@ export const Location: React.FC<LocationProps> = ({locationId, name, type, latit
               </IonFabButton>
             </IonToolbar>
           </IonHeader>
-          <IonContent className="ion-padding page">
+          <IonContent className="ion-padding page-without-scrollbar">
             <IonCard className="program-card">
               <IonCardContent>
                 <IonCardSubtitle className="program-title">Program:</IonCardSubtitle>
