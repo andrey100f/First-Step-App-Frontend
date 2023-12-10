@@ -3,5 +3,6 @@ export interface EventProps {
     name: string;
     description: string;
     participants: number;
+    eventDate: Date;
     location: number;
 }

@@ -93,7 +93,19 @@ const Location: React.FC<LocationProps> = ({
             {days.map((day) => (
               <p key={"" + locationId + `${day} program`}>{day}</p>
             ))}
+            
+            <IonLoading isOpen={fetching} message="Fetching Items" />
 
+            <IonList className="page">
+              {events
+                  ?.filter(event => event.location === locationId)
+                  .map(({eventId, name, description, participants, location, eventDate}) => (
+                      <Event key={eventId} eventId={eventId} name={name} description={description} participants={participants} location={location} eventDate={eventDate}/>
+                  ))}
+            </IonList>
+
+            {fetchingError && (
+                <div>{fetchingError.message || "Failed to fetch items"}</div>
             {latitude && longitude && (
               <MyMap
                 key={"" + locationId + " location"}
