@@ -23,7 +23,7 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 
 import { AnnouncementProvider } from "./announcement/AnnouncementProvider";
-import { home, location, person } from "ionicons/icons";
+import {home, informationCircleOutline, location, person} from "ionicons/icons";
 import { LocationList } from "./location/LocationList";
 import { LocationProvider } from "./location/LocationProvider";
 import { Login } from "./auth/Login";
@@ -39,6 +39,8 @@ import { EventProvider } from "./event/EventProvider";
 import { EditUser } from "./user/EditUser";
 
 import "./utils/styles/main.css";
+import {QuestionProvider} from "./question/QuestionProvider";
+import {QuestionList} from "./question/QuestionList";
 
 setupIonicReact();
 
@@ -69,9 +71,12 @@ const App: React.FC = () => {
                     <AnnouncementProvider>
                       <UniversityProvider>
                         <EventProvider>
-                          <PrivateRoute path="/announcements" component={UniversityList} exact={true}/>
-                          <PrivateRoute path="/locations" component={LocationList} exact={true}/>
-                          <PrivateRoute path="/edit" component={EditUser} exact={true}/>
+                          <QuestionProvider>
+                            <PrivateRoute path="/announcements" component={UniversityList} exact={true}/>
+                            <PrivateRoute path="/locations" component={LocationList} exact={true}/>
+                            <PrivateRoute path="/questions" component={QuestionList} exact={true}/>
+                            <PrivateRoute path="/edit" component={EditUser} exact={true}/>
+                          </QuestionProvider>
                         </EventProvider>
                       </UniversityProvider>
                     </AnnouncementProvider>
@@ -90,6 +95,10 @@ const App: React.FC = () => {
               <IonTabButton tab="locations" href="/locations">
                 <IonIcon aria-hidden="true" icon={location} />
                 <IonLabel>Locations</IonLabel>
+              </IonTabButton>
+              <IonTabButton tab="questions" href="/questions">
+                <IonIcon aria-hidden="true" icon={informationCircleOutline} />
+                <IonLabel>Forum</IonLabel>
               </IonTabButton>
               <IonTabButton tab="edit" href="/edit">
                 <IonIcon aria-hidden="true" icon={person} />
@@ -112,9 +121,12 @@ const App: React.FC = () => {
                   <AnnouncementProvider>
                     <UniversityProvider>
                       <EventProvider>
-                        <PrivateRoute path="/announcements" component={UniversityList} exact={true}/>
-                        <PrivateRoute path="/locations" component={LocationList} exact={true}/>
-                        <PrivateRoute path="/edit" component={EditUser} exact={true}/>
+                        <QuestionProvider>
+                          <PrivateRoute path="/announcements" component={UniversityList} exact={true}/>
+                          <PrivateRoute path="/locations" component={LocationList} exact={true}/>
+                          <PrivateRoute path="/questions" component={QuestionList} exact={true}/>
+                          <PrivateRoute path="/edit" component={EditUser} exact={true}/>
+                        </QuestionProvider>
                       </EventProvider>
                     </UniversityProvider>
                   </AnnouncementProvider>

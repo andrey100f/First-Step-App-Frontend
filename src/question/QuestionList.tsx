@@ -9,7 +9,7 @@ import {
   IonSearchbar,
   IonGrid,
   IonRow,
-  IonCol,
+  IonCol, IonItem, IonTextarea, IonInput, IonCardContent, IonCard,
 } from "@ionic/react";
 
 import { Question } from "./Question";
@@ -27,35 +27,40 @@ export const QuestionList: React.FC<RouteComponentProps> = () => {
     <IonPage>
       <IonContent>
         <IonLoading isOpen={fetching} message="Fetching Items" />
-        {/* <IonGrid className="page">
+
+        <IonItem className="page-without-scrollbar">
+          <IonInput className="ion-margin" label="Add Question" labelPlacement="floating" placeholder="Enter text" />
+        </IonItem>
+        <IonButton className="button-color ion-margin" shape="round" expand="block">Add</IonButton>
+
+        <IonGrid className="page">
           <IonRow>
             <IonCol>
-              <IonButton onClick={() => setFilterType("Club")} className="button-frame" shape="round">Clubs</IonButton>
+              <IonButton onClick={() => setFilterType("Academic")} className="button-frame" shape="round">Academic</IonButton>
             </IonCol>
             <IonCol>
-              <IonButton onClick={() => setFilterType("Restaurant")} className="button-frame" shape="round">Restaurants</IonButton>
+              <IonButton onClick={() => setFilterType("Student Life")} className="button-frame" shape="round">Student Life</IonButton>
             </IonCol>
             <IonCol>
-              <IonButton onClick={() => setFilterType("Cafenea")} className="button-frame ion-text-wrap" shape="round">Coffee Shops</IonButton>
+              <IonButton onClick={() => setFilterType("Career Development")} className="button-frame ion-text-wrap" shape="round">Career Development</IonButton>
             </IonCol>
             <IonCol>
-              <IonButton onClick={() => setFilterType("Biblioteca")} className="button-frame" shape="round">Libraries</IonButton>
+              <IonButton onClick={() => setFilterType("")} className="button-frame" shape="round">Reset Filters</IonButton>
             </IonCol>
           </IonRow>
-        </IonGrid> */}
+        </IonGrid>
 
         <IonList className="page">
           {questions
-            //   ?.filter(location =>
-            //       (!filterType || location.type === filterType) &&
-            //       location.name.toLowerCase().indexOf(searchLocation.toLowerCase()) >= 0)
-            ?.map(({ questionId, text, userDto, date, category }) => (
+              ?.filter(question =>
+                  (!filterType || question.category === filterType))
+            ?.map(({ questionId, text, user, questionDate, category }) => (
               <Question
                 key={questionId}
                 questionId={questionId}
                 text={text}
-                userDto={userDto}
-                date={date}
+                user={user}
+                questionDate={questionDate}
                 category={category}
               />
             ))}
@@ -64,6 +69,7 @@ export const QuestionList: React.FC<RouteComponentProps> = () => {
         {fetchingError && (
           <div>{fetchingError.message || "Failed to fetch items"}</div>
         )}
+
       </IonContent>
     </IonPage>
   );

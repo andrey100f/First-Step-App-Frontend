@@ -8,4 +8,5 @@ export interface LocationProps {
   longitude: number;
   img: string;
   description: string;
+  site: string
 }

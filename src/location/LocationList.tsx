@@ -2,7 +2,7 @@ import { RouteComponentProps } from "react-router";
 import React, { useContext, useState } from "react";
 import { IonContent, IonList, IonLoading, IonPage, IonButton, IonSearchbar, IonGrid, IonRow, IonCol } from "@ionic/react";
 
-import {Location} from "./Location";
+import { Location } from "./Location";
 import { LocationContext } from "./LocationProvider";
 
 import "../utils/styles/main.css";
@@ -42,8 +42,8 @@ export const LocationList: React.FC<RouteComponentProps> = () => {
                   (!filterType || location.type === filterType) &&
                   location.name.toLowerCase().indexOf(searchLocation.toLowerCase()) >= 0)
             .map(
-              ({locationId, name, street, number, type, latitude, longitude, img, description,}) => (
-                <Location key={locationId} locationId={locationId} name={name} street={street} number={number} latitude={parseFloat(latitude.toString())} longitude={parseFloat(longitude.toString())} type={type} img={img} description={description}/>
+              ({locationId, name, street, number, type, latitude, longitude, img, description, site}) => (
+                <Location key={locationId} locationId={locationId} name={name} street={street} number={number} latitude={parseFloat(latitude.toString())} longitude={parseFloat(longitude.toString())} type={type} img={img} description={description} site={site}/>
               )
             )}
         </IonList>

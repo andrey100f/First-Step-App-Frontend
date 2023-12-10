@@ -1,7 +1,7 @@
 export interface QuestionProps {
   questionId: number;
   text: string;
-  userDto: any;
-  date: string;
+  user: string
+  questionDate: Date;
   category: string;
 }
