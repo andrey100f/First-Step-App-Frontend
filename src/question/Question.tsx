@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import { QuestionProps } from "./QuestionProps";
 import {
   IonCard,
@@ -10,36 +9,26 @@ import {
   IonButton,
   IonText,
   IonChip,
-  IonTextarea,
-  IonItem,
 } from "@ionic/react";
 
-export const Question: React.FC<QuestionProps> = ({
-  text,
-  userDto,
-  date,
-  category,
-}) => {
+import {formatDate} from "../utils/utils";
+
+import "../utils/styles/question.css";
+import "../utils/styles/main.css";
+
+export const Question: React.FC<QuestionProps> = ({ text, user, questionDate, category }) => {
   return (
-    <IonCard color="light" className="ion-margin">
+    <IonCard color="light" className="ion-margin question-card">
       <IonCardHeader>
-        <IonCardTitle>{userDto.name}</IonCardTitle>
-        <IonCardSubtitle>{date}</IonCardSubtitle>
-        <IonChip>{category}</IonChip>
+        <IonCardTitle>{user}</IonCardTitle>
+        <IonCardSubtitle>{formatDate(questionDate)}</IonCardSubtitle>
       </IonCardHeader>
 
       <IonCardContent>
-        <IonText>{text}</IonText>
-        <IonButton shape="round">Reply</IonButton>
+          <IonChip>{category}</IonChip>
+        <IonText className="question-text ion-margin">{text}</IonText>
+        <IonButton className="button-color" shape="round">Reply</IonButton>
       </IonCardContent>
-
-      <IonItem>
-        <IonTextarea
-          label="Floating label"
-          labelPlacement="floating"
-          placeholder="Enter text"
-        ></IonTextarea>
-      </IonItem>
     </IonCard>
   );
 };
