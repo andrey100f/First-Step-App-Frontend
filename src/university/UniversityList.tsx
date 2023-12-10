@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { IonContent, IonList, IonLoading, IonPage, IonSearchbar } from "@ionic/react";
+import {IonContent, IonList, IonLoading, IonPage, IonSearchbar, IonSelect, IonSelectOption} from "@ionic/react";
 
 import { UniversityProps } from "./UniversityProps";
 import { UniversityContext } from "./UniversityProvider";
@@ -23,8 +23,8 @@ export const UniversityList: React.FC<UniversityProps> = () => {
                     {universities
                         ?.filter(university =>
                             university.name.toLowerCase().indexOf(searchUniversity.toLowerCase()) >= 0)
-                        .map(({universityId, name, img}) => (
-                            <University key={universityId} universityId={universityId} name={name} img={img} />
+                        .map(({universityId, name, img, faculties}) => (
+                            <University key={universityId} universityId={universityId} name={name} img={img} faculties={faculties} />
                         ))
                     }
                 </IonList>

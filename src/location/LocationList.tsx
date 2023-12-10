@@ -31,7 +31,7 @@ export const LocationList: React.FC<RouteComponentProps> = () => {
               <IonButton onClick={() => setFilterType("Cafenea")} className="button-frame ion-text-wrap" shape="round">Coffee Shops</IonButton>
             </IonCol>
             <IonCol>
-              <IonButton onClick={() => setFilterType("Biblioteca")} className="button-frame" shape="round">Libraries</IonButton>
+              <IonButton onClick={() => setFilterType("")} className="button-frame" shape="round">Reset Filters</IonButton>
             </IonCol>
           </IonRow>
         </IonGrid>
