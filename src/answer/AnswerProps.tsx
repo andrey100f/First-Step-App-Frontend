@@ -3,4 +3,5 @@ export interface AnswerProps {
     text: string;
     answerDate: Date;
     question: number;
+    user: string;
 }

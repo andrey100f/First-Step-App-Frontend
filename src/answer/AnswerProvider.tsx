@@ -28,7 +28,7 @@ const reducer: (state: AnswerState, action: ActionProps) => AnswerState = (
         case FETCHING_STARTED:
             return { ...state, fetching: true, fetchingError: null };
         case FETCHING_SUCCEEDED:
-            return { ...state, questions: payload.questions, fetching: false };
+            return { ...state, answers: payload.answers, fetching: false };
         case FETCHING_FAILED:
             return { ...state, fetchingError: payload.error, fetching: false };
         default:
@@ -63,7 +63,7 @@ export const AnswerProvider: React.FC<ItemProviderProps> = ({ children }) => {
         </AnswerContext.Provider>
     );
 
-    function getAnswersEffect() {
+    function getAnswerEffect() {
         let canceled = false;
 
         if (token) {

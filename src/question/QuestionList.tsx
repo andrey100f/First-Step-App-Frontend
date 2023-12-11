@@ -21,7 +21,6 @@ import "../utils/styles/location.css";
 export const QuestionList: React.FC<RouteComponentProps> = () => {
   const { questions, fetching, fetchingError } = useContext(QuestionContext);
   const [filterType, setFilterType] = useState<string>("");
-  const [searchQuestion, setSearchQuestion] = useState<string>("");
 
   return (
     <IonPage>
@@ -29,7 +28,7 @@ export const QuestionList: React.FC<RouteComponentProps> = () => {
         <IonLoading isOpen={fetching} message="Fetching Items" />
 
         <IonItem className="page-without-scrollbar">
-          <IonInput className="ion-margin" label="Add Question" labelPlacement="floating" placeholder="Enter text" />
+          <IonTextarea className="ion-margin" label="Add Question" labelPlacement="floating" placeholder="Enter text" />
         </IonItem>
         <IonButton className="button-color ion-margin" shape="round" expand="block">Add</IonButton>
 

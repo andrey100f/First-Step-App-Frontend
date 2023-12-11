@@ -58,6 +58,8 @@ export const University: React.FC<UniversityProps> = ({name, faculties, img}) =>
                           </IonSelect>
                       </IonItem>
 
+                      <IonButton className="button-color ion-margin" shape="round" onClick={() => setFacultyFilter("")}>Reset Filters</IonButton>
+
                       <IonList className="page">
                           {announcements
                               ?.filter((announcement) =>

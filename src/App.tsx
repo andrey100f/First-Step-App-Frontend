@@ -41,6 +41,7 @@ import { EditUser } from "./user/EditUser";
 import "./utils/styles/main.css";
 import {QuestionProvider} from "./question/QuestionProvider";
 import {QuestionList} from "./question/QuestionList";
+import {AnswerProvider} from "./answer/AnswerProvider";
 
 setupIonicReact();
 
@@ -72,10 +73,12 @@ const App: React.FC = () => {
                       <UniversityProvider>
                         <EventProvider>
                           <QuestionProvider>
-                            <PrivateRoute path="/announcements" component={UniversityList} exact={true}/>
-                            <PrivateRoute path="/locations" component={LocationList} exact={true}/>
-                            <PrivateRoute path="/questions" component={QuestionList} exact={true}/>
-                            <PrivateRoute path="/edit" component={EditUser} exact={true}/>
+                            <AnswerProvider>
+                              <PrivateRoute path="/announcements" component={UniversityList} exact={true}/>
+                              <PrivateRoute path="/locations" component={LocationList} exact={true}/>
+                              <PrivateRoute path="/questions" component={QuestionList} exact={true}/>
+                              <PrivateRoute path="/edit" component={EditUser} exact={true}/>
+                            </AnswerProvider>
                           </QuestionProvider>
                         </EventProvider>
                       </UniversityProvider>
@@ -122,10 +125,12 @@ const App: React.FC = () => {
                     <UniversityProvider>
                       <EventProvider>
                         <QuestionProvider>
-                          <PrivateRoute path="/announcements" component={UniversityList} exact={true}/>
-                          <PrivateRoute path="/locations" component={LocationList} exact={true}/>
-                          <PrivateRoute path="/questions" component={QuestionList} exact={true}/>
-                          <PrivateRoute path="/edit" component={EditUser} exact={true}/>
+                          <AnswerProvider>
+                            <PrivateRoute path="/announcements" component={UniversityList} exact={true}/>
+                            <PrivateRoute path="/locations" component={LocationList} exact={true}/>
+                            <PrivateRoute path="/questions" component={QuestionList} exact={true}/>
+                            <PrivateRoute path="/edit" component={EditUser} exact={true}/>
+                          </AnswerProvider>
                         </QuestionProvider>
                       </EventProvider>
                     </UniversityProvider>
