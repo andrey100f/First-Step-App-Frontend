@@ -1,15 +1,14 @@
 import { RouteComponentProps } from "react-router";
-import React, { useContext, useState } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {
   IonContent,
   IonList,
   IonLoading,
   IonPage,
   IonButton,
-  IonSearchbar,
   IonGrid,
   IonRow,
-  IonCol, IonItem, IonTextarea, IonInput, IonCardContent, IonCard,
+  IonCol, IonItem, IonTextarea, IonSelect, IonSelectOption, IonToast,
 } from "@ionic/react";
 
 import { Question } from "./Question";
@@ -17,10 +16,41 @@ import { QuestionContext } from "./QuestionProvider";
 
 import "../utils/styles/main.css";
 import "../utils/styles/location.css";
+import {jwtDecode} from "jwt-decode";
+import {usePreferences} from "../utils/usePreferemces";
+import {addQuestion} from "./QuestionApi";
 
 export const QuestionList: React.FC<RouteComponentProps> = () => {
+  const { get } = usePreferences();
+  const [token, setToken] = useState("");
+
   const { questions, fetching, fetchingError } = useContext(QuestionContext);
   const [filterType, setFilterType] = useState<string>("");
+  const [questionText, setQuestionText] = useState("");
+  const [category, setCategory] = useState("");
+  const [added, setAdded] = useState(false);
+
+  useEffect( () => {
+    const getToken = async () => {
+      const result = await get("fsaLoginToken");
+      setToken(result!);
+    };
+
+    getToken();
+  }, []);
+
+  const handleAdd = async () => {
+    setAdded(false);
+    const userData = jwtDecode(token);
+    const questionData = {
+      user: userData.sub,
+      text: questionText,
+      category: category
+    };
+    await addQuestion(token, questionData);
+    window.location.reload();
+    setAdded(true);
+  }
 
   return (
     <IonPage>
@@ -28,9 +58,19 @@ export const QuestionList: React.FC<RouteComponentProps> = () => {
         <IonLoading isOpen={fetching} message="Fetching Items" />
 
         <IonItem className="page-without-scrollbar">
-          <IonTextarea className="ion-margin" label="Add Question" labelPlacement="floating" placeholder="Enter text" />
+          <IonTextarea className="ion-margin" label="Add Question" labelPlacement="floating" placeholder="Enter text" onIonChange={(e) => setQuestionText(e.detail.value || "")} />
         </IonItem>
-        <IonButton className="button-color ion-margin" shape="round" expand="block">Add</IonButton>
+
+        <IonItem className="page-without-scrollbar">
+          <IonSelect className="ion-margin" label="Category" placeholder="Select the category" onIonChange={(e) => setCategory(e.detail.value)}>
+            <IonSelectOption value="Academic">Academic</IonSelectOption>
+            <IonSelectOption value="Student Life">Student Life</IonSelectOption>
+            <IonSelectOption value="Career Development">Career Development</IonSelectOption>
+          </IonSelect>
+        </IonItem>
+
+        <IonButton className="button-color ion-margin" shape="round" expand="block" onClick={handleAdd}
+                   disabled={(!(category !== "" && questionText !== ""))}>Add</IonButton>
 
         <IonGrid className="page">
           <IonRow>
@@ -67,6 +107,10 @@ export const QuestionList: React.FC<RouteComponentProps> = () => {
 
         {fetchingError && (
           <div>{fetchingError.message || "Failed to fetch items"}</div>
+        )}
+
+        {added && (
+            <IonToast isOpen={true} className="ion-color-success" duration={2000} message={"Question added successfully"}></IonToast>
         )}
 
       </IonContent>

@@ -84,8 +84,7 @@ const App: React.FC = () => {
                       </UniversityProvider>
                     </AnnouncementProvider>
                   </LocationProvider>
-                  <Route exact path="/" render={() => <Redirect to="/announcements" />}
-                  />
+                  <Route exact path="/" render={() => <Redirect to="/announcements" />}/>
                 </RegisterProvider>
               </LoginProvider>
             </IonRouterOutlet>

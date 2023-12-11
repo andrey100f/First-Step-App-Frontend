@@ -79,7 +79,6 @@ export const AnswerProvider: React.FC<ItemProviderProps> = ({ children }) => {
                 dispatch({ type: FETCHING_STARTED });
 
                 const answers = await getAllAnswers(token);
-                console.log(answers);
 
                 if (!canceled) {
                     dispatch({ type: FETCHING_SUCCEEDED, payload: { answers } });
