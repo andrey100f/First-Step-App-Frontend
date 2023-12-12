@@ -1,5 +1,14 @@
 import React, {useEffect, useState} from "react";
-import {IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonChip} from "@ionic/react";
+import {
+    IonButton,
+    IonCard,
+    IonCardContent,
+    IonCardHeader,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonChip,
+    IonToast
+} from "@ionic/react";
 
 import { EventProps } from "./EventProps";
 import { addParticipant, addParticipantToEvent, getAllParticipants } from "../participant/PaticipantApi";
@@ -13,6 +22,8 @@ export const Event: React.FC<EventProps> = ({eventId, name, description, partici
 }) => {
     const { get } = usePreferences();
     const [token, setToken] = useState("");
+    const [added, setAdded] = useState(false);
+    const [addError, setAddError] = useState(false);
 
     useEffect( () => {
         const getToken = async () => {
@@ -25,25 +36,31 @@ export const Event: React.FC<EventProps> = ({eventId, name, description, partici
 
     const handleAdd = async () => {
         const userData = jwtDecode(token);
-        const participantData = {
-            user: userData.sub,
-            eventId: eventId
-        }
-        const eventData = {
-            eventId: eventId,
-            participants: participants + 1
-        }
-        console.log(participantData);
-        console.log(eventData);
-        await addParticipant(token, participantData);
-        await addParticipantToEvent(token, eventData);
-        // window.location.reload();
-    }
+        const listOfParticipants = await getAllParticipants(token);
+        const filteredParticipants = listOfParticipants.filter(participant =>
+            participant.userEmail === userData.sub && participant.eventId === eventId);
 
-    // const checkParticipants = async (eventId, user) => {
-    //     const listOfParticipants = await getAllParticipants(token);
-    //     listOfParticipants.filter(participant => participant.eventId === e)
-    // }
+        if(filteredParticipants.length > 0) {
+            setAddError(true);
+        }
+        else {
+            setAdded(false);
+            const participantData = {
+                user: userData.sub,
+                eventId: eventId
+            }
+            const eventData = {
+                eventId: eventId,
+                participants: participants + 1
+            }
+
+            await addParticipant(token, participantData);
+            await addParticipantToEvent(token, eventData);
+
+            setAdded(true);
+            window.location.reload();
+        }
+    }
 
     return (
         <IonCard color="light" className="ion-margin event-card">
@@ -56,6 +73,14 @@ export const Event: React.FC<EventProps> = ({eventId, name, description, partici
                 <p>{description}</p>
                 <IonChip>{participants}</IonChip>
                 <IonButton className="button-color" shape="round" onClick={handleAdd}>I participate</IonButton>
+
+                {added && (
+                    <IonToast isOpen={true} className="ion-color-success" duration={2000} message={"Participant added successfully"}></IonToast>
+                )}
+
+                {addError && (
+                    <IonToast isOpen={true} className="ion-color-danger" duration={2000} message={"You already participate at this event!!"}></IonToast>
+                )}
             </IonCardContent>
         </IonCard>
     );

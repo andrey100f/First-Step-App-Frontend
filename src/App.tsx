@@ -1,7 +1,7 @@
 import { Redirect, Route } from "react-router-dom";
 import { IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, setupIonicReact,} from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -46,7 +46,7 @@ import {AnswerProvider} from "./answer/AnswerProvider";
 setupIonicReact();
 
 const App: React.FC = () => {
-  const { get } = usePreferences();
+  const {get} = usePreferences();
   const [token, setToken] = useState("");
   useEffect(() => {
     const getToken = async () => {

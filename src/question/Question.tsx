@@ -1,44 +1,25 @@
 import React, {useContext, useEffect, useState} from "react";
 import { QuestionProps } from "./QuestionProps";
-import {
-    IonCard,
-    IonCardContent,
-    IonCardTitle,
-    IonCardHeader,
-    IonCardSubtitle,
-    IonButton,
-    IonText,
-    IonChip,
-    IonModal,
-    IonHeader,
-    IonToolbar,
-    IonFabButton,
-    IonIcon,
-    IonContent,
-    IonList,
-    IonItem,
-    IonInput,
-    IonTextarea, IonToast,
-} from "@ionic/react";
+import { IonCard, IonCardContent, IonCardTitle, IonCardHeader, IonCardSubtitle, IonButton, IonText, IonChip, IonModal,
+    IonHeader, IonToolbar, IonFabButton, IonIcon, IonContent, IonList, IonItem, IonTextarea, IonToast,} from "@ionic/react";
 
 import {formatDate} from "../utils/utils";
+import { AnswerContext } from "../answer/AnswerProvider";
+import { chevronBack } from "ionicons/icons";
+import { Answer } from "../answer/Answer";
+import { usePreferences } from "../utils/usePreferemces";
+import { jwtDecode } from "jwt-decode";
+import { addAnswer } from "../answer/AnswerApi";
 
 import "../utils/styles/question.css";
 import "../utils/styles/main.css";
-import {AnswerContext} from "../answer/AnswerProvider";
-import {chevronBack} from "ionicons/icons";
-import {Answer} from "../answer/Answer";
-import {usePreferences} from "../utils/usePreferemces";
-import {jwtDecode} from "jwt-decode";
-import {addAnswer} from "../answer/AnswerApi";
+
 
 export const Question: React.FC<QuestionProps> = ({ questionId, text, user, questionDate, category }) => {
     const [isOpen, setIsOpen] = useState(false);
     const {answers, fetching, fetchingError} = useContext(AnswerContext);
-
-    const { get } = usePreferences();
+    const {get} = usePreferences();
     const [token, setToken] = useState("");
-
     const [answerText, setAnswerText] = useState("");
     const [added, setAdded] = useState(false);
 

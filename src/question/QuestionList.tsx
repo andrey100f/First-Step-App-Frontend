@@ -1,24 +1,17 @@
 import { RouteComponentProps } from "react-router";
 import React, {useContext, useEffect, useState} from "react";
-import {
-  IonContent,
-  IonList,
-  IonLoading,
-  IonPage,
-  IonButton,
-  IonGrid,
-  IonRow,
-  IonCol, IonItem, IonTextarea, IonSelect, IonSelectOption, IonToast,
-} from "@ionic/react";
+import { IonContent, IonList, IonLoading, IonPage, IonButton, IonGrid, IonRow, IonCol, IonItem, IonTextarea, IonSelect,
+  IonSelectOption, IonToast } from "@ionic/react";
 
 import { Question } from "./Question";
 import { QuestionContext } from "./QuestionProvider";
+import { jwtDecode } from "jwt-decode";
+import { usePreferences } from "../utils/usePreferemces";
+import { addQuestion } from "./QuestionApi";
 
 import "../utils/styles/main.css";
 import "../utils/styles/location.css";
-import {jwtDecode} from "jwt-decode";
-import {usePreferences} from "../utils/usePreferemces";
-import {addQuestion} from "./QuestionApi";
+
 
 export const QuestionList: React.FC<RouteComponentProps> = () => {
   const { get } = usePreferences();
@@ -94,14 +87,7 @@ export const QuestionList: React.FC<RouteComponentProps> = () => {
               ?.filter(question =>
                   (!filterType || question.category === filterType))
             ?.map(({ questionId, text, user, questionDate, category }) => (
-              <Question
-                key={questionId}
-                questionId={questionId}
-                text={text}
-                user={user}
-                questionDate={questionDate}
-                category={category}
-              />
+              <Question key={questionId} questionId={questionId} text={text} user={user} questionDate={questionDate} category={category} />
             ))}
         </IonList>
 

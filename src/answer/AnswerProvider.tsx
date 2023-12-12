@@ -3,14 +3,7 @@ import React, { useEffect, useReducer, useState } from "react";
 import { AnswerProps } from "./AnswerProps";
 import { getAllAnswers } from "./AnswerApi";
 import { usePreferences } from "../utils/usePreferemces";
-import {
-    ActionProps,
-    FETCHING_FAILED,
-    FETCHING_STARTED,
-    FETCHING_SUCCEEDED,
-    ItemProviderProps,
-    ItemState,
-} from "../utils/provider";
+import { ActionProps, FETCHING_FAILED, FETCHING_STARTED, FETCHING_SUCCEEDED, ItemProviderProps, ItemState } from "../utils/provider";
 
 export interface AnswerState extends ItemState {
     answers?: AnswerProps[];
@@ -20,10 +13,7 @@ const initialState: AnswerState = {
     fetching: false,
 };
 
-const reducer: (state: AnswerState, action: ActionProps) => AnswerState = (
-    state,
-    { type, payload }
-) => {
+const reducer: (state: AnswerState, action: ActionProps) => AnswerState = (state, { type, payload }) => {
     switch (type) {
         case FETCHING_STARTED:
             return { ...state, fetching: true, fetchingError: null };
@@ -40,8 +30,8 @@ export const AnswerContext = React.createContext<AnswerState>(initialState);
 
 export const AnswerProvider: React.FC<ItemProviderProps> = ({ children }) => {
     const [state, dispatch] = useReducer(reducer, initialState);
-    const { answers, fetching, fetchingError } = state;
-    const { get } = usePreferences();
+    const {answers, fetching, fetchingError} = state;
+    const {get} = usePreferences();
     const [token, setToken] = useState("");
 
     useEffect(() => {

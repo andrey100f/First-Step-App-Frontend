@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, { useEffect, useState} from "react";
 import { RouteComponentProps } from "react-router";
 import {
     IonButton,
@@ -6,26 +6,23 @@ import {
     IonInput,
     IonItem,
     IonLabel,
-    IonLoading,
     IonPage,
     IonSelect,
     IonSelectOption,
-    IonTitle, IonToast,
+    IonTitle,
+    IonToast,
     IonToolbar
 } from "@ionic/react";
 import { jwtDecode } from "jwt-decode";
 
 import { usePreferences } from "../utils/usePreferemces";
+import { getAllUsers, updateUser } from "./UserApi";
 
 import "../utils/styles/main.css";
-import {getAllUsers, updateUser} from "./UserApi";
-import {UniversityContext} from "../university/UniversityProvider";
 
 export const EditUser: React.FC<RouteComponentProps> = () => {
   const { get, set } = usePreferences();
   const [token, setToken] = useState("");
-  const {universities} = useContext(UniversityContext);
-
   const [name, setName] = useState("");
   const [oldEmail, setOldEmail] = useState("");
   const [newEmail, setNewEmail] = useState("");
@@ -100,16 +97,22 @@ export const EditUser: React.FC<RouteComponentProps> = () => {
           </IonItem>
             <IonItem className="ion-margin" color="transparent">
                 <IonSelect value={university} label="University" labelPlacement="floating" disabled>
-                    {universities
-                        ?.map(({universityId, name}) => (
-                            <IonSelectOption key={universityId} value={name}>{name}</IonSelectOption>
-                        ))}
+                    <IonSelectOption value="Universitatea Babes-Bolyai">Universitatea Babes-Bolyai</IonSelectOption>
+                    <IonSelectOption value="Universitatea Tehnica din Cluj-Napoca">Universitatea Tehnica din Cluj-Napoca</IonSelectOption>
+                    <IonSelectOption value="Universitatea Tehnica din Cluj-Napoca">Universitatea de Medicina si Farmacie Iuliu Hatieganu</IonSelectOption>
                 </IonSelect>
             </IonItem>
             <IonItem className="ion-margin" color="transparent">
                 <IonSelect value={faculty} label="Faculty" labelPlacement="floating" disabled>
                     <IonSelectOption value="Facultatea de Matematica si Informatica">Facultatea de Matematica si Informatica</IonSelectOption>
+                    <IonSelectOption value="Facultatea de Drept">Facultatea de Drept</IonSelectOption>
+                    <IonSelectOption value="Facultatea de Stiinte Economice si Gestiunea Afacerilor">Facultatea de Stiinte Economice si Gestiunea Afacerilor</IonSelectOption>
                     <IonSelectOption value="Facultatea de Automatica si Calculatoare">Facultatea de Automatica si Calculatoare</IonSelectOption>
+                    <IonSelectOption value="Facultatea de Constructii">Facultatea de Constructii</IonSelectOption>
+                    <IonSelectOption value="Facultatea de Electronica, Telecomunicatii si Tehnologia Informatiei">Facultatea de Electronica, Telecomunicatii si Tehnologia Informatiei</IonSelectOption>
+                    <IonSelectOption value="Facultatea Medicina">Facultatea Medicina</IonSelectOption>
+                    <IonSelectOption value="Facultatea de Medicina Dentara">Facultatea de Medicina Dentara</IonSelectOption>
+                    <IonSelectOption value="Facultatea de Farmacie">Facultatea de Farmacie</IonSelectOption>
                 </IonSelect>
             </IonItem>
           <IonButton className="ion-margin-top login-button edit-button" shape="round" color="dark" onClick={handleUpdate}>Update</IonButton>

@@ -1,5 +1,5 @@
 export interface ParticipantProps {
     participantId: number;
-    userId: string;
+    userEmail: string;
     eventId: number;
 }
