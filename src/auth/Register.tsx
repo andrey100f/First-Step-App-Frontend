@@ -79,7 +79,7 @@ export const Register: React.FC<RouteComponentProps> = ({ history }) => {
   );
 
   const handleRegister = useCallback(() => {
-    if(university === "Universitatea Babes Bolyai" && (faculty !== "Facultatea de Matematica si Informatica" && faculty !== "Facultatea de Drept" && faculty !== "Facultatea de Stiinte Economice si Gestiunea Afacerilor")) {
+    if(university === "Universitatea Babes-Bolyai" && (faculty !== "Facultatea de Matematica si Informatica" && faculty !== "Facultatea de Drept" && faculty !== "Facultatea de Stiinte Economice si Gestiunea Afacerilor")) {
       setError(true);
       return;
     }
