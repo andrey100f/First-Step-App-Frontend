@@ -1,5 +1,5 @@
 import React from "react";
-import {IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonChip} from "@ionic/react";
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonChip } from "@ionic/react";
 
 import { AnnouncementProps } from "./AnnouncementProps";
 

@@ -1,39 +1,49 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { QuestionProps } from "./QuestionProps";
-import {
-    IonCard,
-    IonCardContent,
-    IonCardTitle,
-    IonCardHeader,
-    IonCardSubtitle,
-    IonButton,
-    IonText,
-    IonChip,
-    IonModal,
-    IonHeader,
-    IonToolbar,
-    IonFabButton,
-    IonIcon,
-    IonContent,
-    IonList,
-    IonItem,
-    IonInput,
-    IonTextarea,
-} from "@ionic/react";
+import { IonCard, IonCardContent, IonCardTitle, IonCardHeader, IonCardSubtitle, IonButton, IonText, IonChip, IonModal,
+    IonHeader, IonToolbar, IonFabButton, IonIcon, IonContent, IonList, IonItem, IonTextarea, IonToast,} from "@ionic/react";
 
 import {formatDate} from "../utils/utils";
+import { AnswerContext } from "../answer/AnswerProvider";
+import { chevronBack } from "ionicons/icons";
+import { Answer } from "../answer/Answer";
+import { usePreferences } from "../utils/usePreferemces";
+import { jwtDecode } from "jwt-decode";
+import { addAnswer } from "../answer/AnswerApi";
 
 import "../utils/styles/question.css";
 import "../utils/styles/main.css";
-import {AnswerContext} from "../answer/AnswerProvider";
-import {chevronBack} from "ionicons/icons";
-import {MyMap} from "../utils/location/MyMap";
-import {Event} from "../event/Event";
-import {Answer} from "../answer/Answer";
+
 
 export const Question: React.FC<QuestionProps> = ({ questionId, text, user, questionDate, category }) => {
     const [isOpen, setIsOpen] = useState(false);
     const {answers, fetching, fetchingError} = useContext(AnswerContext);
+    const {get} = usePreferences();
+    const [token, setToken] = useState("");
+    const [answerText, setAnswerText] = useState("");
+    const [added, setAdded] = useState(false);
+
+    useEffect( () => {
+        const getToken = async () => {
+            const result = await get("fsaLoginToken");
+            setToken(result!);
+        };
+
+        getToken();
+    }, []);
+
+    const handleAdd = async () => {
+        setAdded(false);
+        const userData = jwtDecode(token);
+        const answerData = {
+            user: userData.sub,
+            text: answerText,
+            question: questionId
+        };
+        await addAnswer(token, answerData);
+        window.location.reload();
+        setAdded(true);
+    }
 
   return (
     <IonCard color="light" className="ion-margin question-card">
@@ -58,9 +68,10 @@ export const Question: React.FC<QuestionProps> = ({ questionId, text, user, ques
 
               <IonContent className="ion-padding page-without-scrollbar">
                   <IonItem className="page-without-scrollbar">
-                      <IonTextarea className="ion-margin" label="Add Answer" labelPlacement="floating" placeholder="Enter text" />
+                      <IonTextarea className="ion-margin" label="Add Answer" labelPlacement="floating" placeholder="Enter text" onIonChange={(e) => setAnswerText(e.detail.value || "")} />
                   </IonItem>
-                  <IonButton className="button-color ion-margin" shape="round" expand="block">Add</IonButton>
+                  <IonButton className="button-color ion-margin" shape="round" expand="block" onClick={handleAdd}
+                             disabled={!(answerText !== "")}>Add</IonButton>
 
                   <IonList className="page">
                       {answers
@@ -73,6 +84,10 @@ export const Question: React.FC<QuestionProps> = ({ questionId, text, user, ques
 
                   {fetchingError && (
                       <div>{fetchingError.message || "Failed to fetch items"}</div>
+                  )}
+
+                  {added && (
+                      <IonToast isOpen={true} className="ion-color-success" duration={2000} message={"Answer added successfully"}></IonToast>
                   )}
               </IonContent>
           </IonModal>

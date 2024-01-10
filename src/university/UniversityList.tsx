@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import {IonContent, IonList, IonLoading, IonPage, IonSearchbar, IonSelect, IonSelectOption} from "@ionic/react";
+import { IonContent, IonList, IonLoading, IonPage, IonSearchbar } from "@ionic/react";
 
 import { UniversityProps } from "./UniversityProps";
 import { UniversityContext } from "./UniversityProvider";

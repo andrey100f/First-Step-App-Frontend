@@ -3,14 +3,7 @@ import React, { useEffect, useReducer, useState } from "react";
 import { QuestionProps } from "./QuestionProps";
 import { getAllQuestions } from "./QuestionApi";
 import { usePreferences } from "../utils/usePreferemces";
-import {
-  ActionProps,
-  FETCHING_FAILED,
-  FETCHING_STARTED,
-  FETCHING_SUCCEEDED,
-  ItemProviderProps,
-  ItemState,
-} from "../utils/provider";
+import { ActionProps, FETCHING_FAILED, FETCHING_STARTED, FETCHING_SUCCEEDED, ItemProviderProps, ItemState } from "../utils/provider";
 
 export interface QuestionState extends ItemState {
   questions?: QuestionProps[];
@@ -20,10 +13,7 @@ const initialState: QuestionState = {
   fetching: false,
 };
 
-const reducer: (state: QuestionState, action: ActionProps) => QuestionState = (
-  state,
-  { type, payload }
-) => {
+const reducer: (state: QuestionState, action: ActionProps) => QuestionState = (state, { type, payload }) => {
   switch (type) {
     case FETCHING_STARTED:
       return { ...state, fetching: true, fetchingError: null };
@@ -79,7 +69,6 @@ export const QuestionProvider: React.FC<ItemProviderProps> = ({ children }) => {
         dispatch({ type: FETCHING_STARTED });
 
         const questions = await getAllQuestions(token);
-        console.log(questions);
 
         if (!canceled) {
           dispatch({ type: FETCHING_SUCCEEDED, payload: { questions } });

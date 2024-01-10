@@ -13,10 +13,7 @@ const initialState: AnnouncementState = {
   fetching: false,
 };
 
-const reducer: (
-  state: AnnouncementState,
-  action: ActionProps
-) => AnnouncementState = (state, { type, payload }) => {
+const reducer: (state: AnnouncementState, action: ActionProps) => AnnouncementState = (state, { type, payload }) => {
   switch (type) {
     case FETCHING_STARTED:
       return { ...state, fetching: true, fetchingError: null };
@@ -37,7 +34,7 @@ export const AnnouncementItemContext = React.createContext<AnnouncementState>(in
 
 export const AnnouncementProvider: React.FC<ItemProviderProps> = ({ children}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { announcements, fetching, fetchingError } = state;
+  const {announcements, fetching, fetchingError} = state;
   const {get} = usePreferences();
   const [token, setToken] = useState<string>("");
 

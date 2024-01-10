@@ -1,19 +1,8 @@
 import React from "react";
 import { useState, useContext } from "react";
 
-import {
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardTitle,
-  IonButton,
-  IonModal,
-  IonHeader,
-  IonToolbar,
-  IonContent,
-  IonCardSubtitle,
-  IonFabButton, IonIcon, IonText, IonLoading, IonList
-} from "@ionic/react";
+import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonButton, IonModal, IonHeader, IonToolbar, IonContent,
+  IonCardSubtitle, IonFabButton, IonIcon, IonText, IonList} from "@ionic/react";
 import { chevronBack } from "ionicons/icons";
 
 import { LocationProps } from "./LocationProps";

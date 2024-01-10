@@ -1,20 +1,6 @@
 import React, { useContext, useState } from "react";
-import {
-    IonButton,
-    IonCard,
-    IonCardContent,
-    IonCardHeader,
-    IonCardTitle,
-    IonContent,
-    IonFabButton,
-    IonHeader,
-    IonIcon, IonItem,
-    IonList,
-    IonLoading,
-    IonModal, IonSelect,
-    IonSelectOption,
-    IonToolbar
-} from "@ionic/react";
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonFabButton, IonHeader, IonIcon,
+    IonItem, IonList, IonLoading, IonModal, IonSelect, IonSelectOption, IonToolbar} from "@ionic/react";
 import { chevronBack } from "ionicons/icons";
 
 import { UniversityProps } from "./UniversityProps";
