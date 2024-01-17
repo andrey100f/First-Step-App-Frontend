@@ -1,3 +1,5 @@
+//Interfata care defineste proprietatile anunturilor
+
 export interface AnnouncementProps {
   announcementId: number;
   title: string;
