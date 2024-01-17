@@ -62,10 +62,10 @@ export const Location: React.FC<LocationProps> = ({locationId, name, type, latit
 
               <IonList className="page">
                 {events
-                    ?.filter(event => event.location === locationId)
-                    .map(({eventId, name, description, participants, location, eventDate}) => (
+                    ?.filter(event => event.locationName === name)
+                    .map(({eventId, name, description, participants, locationName, eventDate}) => (
                         <Event key={eventId} eventId={eventId} name={name} description={description}
-                               participants={participants} location={location} eventDate={eventDate}/>
+                               participants={participants} locationName={locationName} eventDate={eventDate}/>
                     ))}
               </IonList>
 

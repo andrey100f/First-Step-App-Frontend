@@ -17,7 +17,7 @@ export const UniversityList: React.FC<UniversityProps> = () => {
                 <IonSearchbar className="ion-padding page" value={searchUniversity} debounce={500} onIonChange={e => setSearchUniversity(e.detail.value!)}
                               animated={true} placeholder="Search"></IonSearchbar>
 
-                <IonLoading isOpen={fetching} message="Fetching Items" />
+                {/*<IonLoading isOpen={fetching} message="Fetching Items" />*/}
 
                 <IonList className="page">
                     {universities
