@@ -86,7 +86,8 @@ export const Login: React.FC<RouteComponentProps> = ({ history }) => {
             <IonLabel position="floating">Password</IonLabel>
             <IonInput type="password" value={password} onIonChange={handlePasswordChange}/>
           </IonItem>
-          <IonButton color="dark" className="ion-margin-top login-button" shape="round" onClick={handleLogin}>Log In</IonButton>
+          <IonButton color="dark" className="ion-margin-top login-button" shape="round" onClick={handleLogin}
+                     disabled={(!(email !== undefined && password !== undefined))}>Log In</IonButton>
           <IonButton color="dark" className="ion-margin-top login-button" shape="round" onClick={handleRegister}>Register</IonButton>
         </div>
 

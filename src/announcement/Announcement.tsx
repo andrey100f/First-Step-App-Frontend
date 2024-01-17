@@ -5,7 +5,7 @@ import { AnnouncementProps } from "./AnnouncementProps";
 
 import "../utils/styles/main.css";
 
-export const Announcement: React.FC<AnnouncementProps> = ({title, text, url, faculty}) => {
+export const Announcement: React.FC<AnnouncementProps> = ({title, text, url,faculty}) => {
   const handleClick = () => {
     window.location.href = url;
   }

@@ -17,14 +17,14 @@ export const UniversityList: React.FC<UniversityProps> = () => {
                 <IonSearchbar className="ion-padding page" value={searchUniversity} debounce={500} onIonChange={e => setSearchUniversity(e.detail.value!)}
                               animated={true} placeholder="Search"></IonSearchbar>
 
-                <IonLoading isOpen={fetching} message="Fetching Items" />
+                {/*<IonLoading isOpen={fetching} message="Fetching Items" />*/}
 
                 <IonList className="page">
                     {universities
                         ?.filter(university =>
                             university.name.toLowerCase().indexOf(searchUniversity.toLowerCase()) >= 0)
-                        .map(({universityId, name, img}) => (
-                            <University key={universityId} universityId={universityId} name={name} img={img} />
+                        .map(({universityId, name, img, faculties}) => (
+                            <University key={universityId} universityId={universityId} name={name} img={img} faculties={faculties} />
                         ))
                     }
                 </IonList>
