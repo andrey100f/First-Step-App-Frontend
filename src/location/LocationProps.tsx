@@ -1,3 +1,4 @@
+//Interfata pentru Locatii
 export interface LocationProps {
   locationId: number;
   name: string;
@@ -8,5 +9,5 @@ export interface LocationProps {
   longitude: number;
   img: string;
   description: string;
-  site: string
+  site: string;
 }
