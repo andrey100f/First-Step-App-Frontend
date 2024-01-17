@@ -2,8 +2,8 @@ export interface AnnouncementProps {
   announcementId: number;
   title: string;
   text: string;
-  category: string;
-  img: string;
   url: string;
-  universityDto: any;
+  img: string;
+  faculty: string;
+  university: string;
 }

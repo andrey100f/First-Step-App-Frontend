@@ -2,7 +2,7 @@ import { RouteComponentProps } from "react-router";
 import React, { useContext, useState } from "react";
 import { IonContent, IonList, IonLoading, IonPage, IonButton, IonSearchbar, IonGrid, IonRow, IonCol } from "@ionic/react";
 
-import {Location} from "./Location";
+import Location from "./Location";
 import { LocationContext } from "./LocationProvider";
 
 import "../utils/styles/main.css";
