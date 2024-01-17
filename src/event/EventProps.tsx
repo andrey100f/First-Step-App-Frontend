@@ -4,5 +4,6 @@ export interface EventProps {
   name: string;
   description: string;
   participants: number;
-  location: number;
+  eventDate: Date;
+  locationName: string;
 }
