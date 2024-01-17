@@ -1,8 +1,8 @@
+//Interfata pentru evenimente
 export interface EventProps {
-    eventId: number;
-    name: string;
-    description: string;
-    participants: number;
-    eventDate: Date;
-    location: number;
+  eventId: number;
+  name: string;
+  description: string;
+  participants: number;
+  location: number;
 }

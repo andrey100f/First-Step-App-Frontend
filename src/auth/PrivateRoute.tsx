@@ -9,7 +9,11 @@ interface PrivateRouteProps {
   path: string;
   exact?: boolean;
 }
-
+/**
+ * Componenta pentru gestionarea rutelor private
+ * @param param0 - Proprietățile componentei PrivateRoute
+ * @returns Componenta pentru rută privată sau redirecționează către pagina de salut
+ */
 export const PrivateRoute: React.FC<PrivateRouteProps> = ({
   component: Component,
   ...rest
