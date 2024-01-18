@@ -7,6 +7,11 @@ interface MyMapProps {
   lng: number;
 }
 
+/**
+ * Componenta pentru afisarea unei harti utilizand Google Maps
+ * @param param0 atributele hatrtii, latitudine si longitudine
+ * @returns componenta hartii
+ */
 export const MyMap: React.FC<MyMapProps> = ({ lat, lng }) => {
   const mapRef = useRef<HTMLElement>(null);
   useEffect(myMapEffect, [mapRef.current]);
