@@ -3,8 +3,18 @@ import React, { useEffect, useReducer, useState } from "react";
 import { QuestionProps } from "./QuestionProps";
 import { getAllQuestions } from "./QuestionApi";
 import { usePreferences } from "../utils/usePreferemces";
-import { ActionProps, FETCHING_FAILED, FETCHING_STARTED, FETCHING_SUCCEEDED, ItemProviderProps, ItemState } from "../utils/provider";
+import {
+  ActionProps,
+  FETCHING_FAILED,
+  FETCHING_STARTED,
+  FETCHING_SUCCEEDED,
+  ItemProviderProps,
+  ItemState,
+} from "../utils/provider";
 
+/**
+ * Interfață care definește starea pentru întrebări.
+ */
 export interface QuestionState extends ItemState {
   questions?: QuestionProps[];
 }
@@ -13,7 +23,17 @@ const initialState: QuestionState = {
   fetching: false,
 };
 
-const reducer: (state: QuestionState, action: ActionProps) => QuestionState = (state, { type, payload }) => {
+/**
+ * Reducer-ul care gestionează schimbările de stare ale contextului.
+ * @param state Starea curentă a contextului
+ * @param param0 Acțiunea care indică tipul și, opțional, datele asociate
+ * @returns Starea actualizată a contextului
+ */
+
+const reducer: (state: QuestionState, action: ActionProps) => QuestionState = (
+  state,
+  { type, payload }
+) => {
   switch (type) {
     case FETCHING_STARTED:
       return { ...state, fetching: true, fetchingError: null };
@@ -26,8 +46,16 @@ const reducer: (state: QuestionState, action: ActionProps) => QuestionState = (s
   }
 };
 
+/**
+ * Contextul creat pentru gestionarea stării întrebărilor.
+ */
 export const QuestionContext = React.createContext<QuestionState>(initialState);
 
+/**
+ * Provider-ul care furnizează contextul întregii aplicații.
+ * @param param0 Props-urile provider-ului
+ * @returns Componenta React care furnizează contextul întrebărilor.
+ */
 export const QuestionProvider: React.FC<ItemProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { questions, fetching, fetchingError } = state;
@@ -53,6 +81,10 @@ export const QuestionProvider: React.FC<ItemProviderProps> = ({ children }) => {
     </QuestionContext.Provider>
   );
 
+  /**
+   * Efect care se activează atunci când token-ul se schimbă și obține întrebările asociate acestuia.
+   * @returns Funcția care va fi apelată la demontarea componentei
+   */
   function getQuestionEffect() {
     let canceled = false;
 
